@@ -5,8 +5,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 // ==========================================
 // 🌐 API CONFIGURATION
-// REPLACE the URL below with your actual Render backend URL!
-// Example: "https://dhsud-backend-xyz.onrender.com/api/applications/"
 // ==========================================
 const API_URL = 'https://dhsud-819b.onrender.com/api/applications/';
 
@@ -21,18 +19,14 @@ const TrashIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24
 const SearchIcon = () => (<svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>);
 const ViewIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>);
 
-// --- CONSTANTS & INITIAL LOCATION DATA ---
-const projTypeOptionsList = [
-  "OM Subd", "OM Condo", "MCH Subd", "MCH Condo", 
-  "EH Subd", "EH Condo", "SH Subd", "SH Condo", 
-  "MP", "COL/OS", "Commercial Condo", "Industrial Subd", 
-  "Commercial Subd", "Farmlot Subd"
-];
-
-const crlsOptionsList = [
-  "New LS", "New CR", "Amended LS", "Amended CR", 
-  "Replacement of LS", "Replacement of CR", "Compliance Entry Only"
-];
+// --- CONSTANTS & INITIAL DATA ---
+const initialOptions = {
+  projTypes: ["OM Subd", "OM Condo", "MCH Subd", "MCH Condo", "EH Subd", "EH Condo", "SH Subd", "SH Condo", "MP", "COL/OS", "Commercial Condo", "Industrial Subd", "Commercial Subd", "Farmlot Subd"],
+  appTypes: ["New Application", "Reactivated", "Replacement"],
+  statusOptions: ["Ongoing", "Approved", "Denied", "Endorsed to HREDRB"],
+  mainCompOptions: ["Main", "Compliance"],
+  crlsOptions: ["New LS", "New CR", "Amended LS", "Amended CR", "Replacement of LS", "Replacement of CR", "Compliance Entry Only"]
+};
 
 const initialNirLocations: Record<string, Record<string, string[]>> = {
   "Negros Occidental": {
@@ -104,11 +98,11 @@ interface Application {
   mun_city: string;
   street_brgy: string;
   crls_options?: string[];
+  date_archived?: string | null;
 }
 
 // ==========================================
 // 🚀 NEW: ISOLATED PROJECT FORM MODAL
-// Moving this here completely stops input lag!
 // ==========================================
 const ProjectFormModal = ({ 
   appToEdit, 
@@ -125,11 +119,23 @@ const ProjectFormModal = ({
 }) => {
   
   const emptyForm = {
-    name_of_proj: '', proj_owner_dev: '', status_of_application: 'Ongoing', type_of_application: 'New Application', cr_no: '', ls_no: '', proj_type: '', main_or_compliance: 'Main', date_filed: '', date_issued: '', date_completion: '', prov: '', mun_city: '', street_brgy: '', crls_options: [] as string[]
+    name_of_proj: '', proj_owner_dev: '', status_of_application: 'Ongoing', type_of_application: 'New Application', 
+    cr_nos: [''], ls_nos: [''], // Utilizing Arrays for dynamic inputs
+    proj_type: '', main_or_compliance: 'Main', date_filed: '', date_issued: '', date_completion: '', prov: '', mun_city: '', street_brgy: '', crls_options: [] as string[]
   };
 
-  const [formData, setFormData] = useState(appToEdit || emptyForm);
+  const [formData, setFormData] = useState(() => {
+    if (appToEdit) {
+      return {
+        ...appToEdit,
+        cr_nos: appToEdit.cr_no ? appToEdit.cr_no.split(', ') : [''],
+        ls_nos: appToEdit.ls_no ? appToEdit.ls_no.split(', ') : ['']
+      }
+    }
+    return emptyForm;
+  });
 
+  // --- LOCATION STATE ---
   const [locationDB, setLocationDB] = useState<Record<string, Record<string, string[]>>>(() => {
     const saved = localStorage.getItem('dhsud_custom_locations');
     if (saved) {
@@ -144,11 +150,19 @@ const ProjectFormModal = ({
     return initialNirLocations;
   });
 
+  // --- DYNAMIC OPTIONS STATE ---
+  const [formOptions, setFormOptions] = useState(() => {
+    const saved = localStorage.getItem('dhsud_custom_options');
+    return saved ? JSON.parse(saved) : initialOptions;
+  });
+
   const [promptDialog, setPromptDialog] = useState({ show: false, title: '', message: '', placeholder: '', action: null as any });
   const [promptValue, setPromptValue] = useState('');
 
   useEffect(() => { localStorage.setItem('dhsud_custom_locations', JSON.stringify(locationDB)); }, [locationDB]);
+  useEffect(() => { localStorage.setItem('dhsud_custom_options', JSON.stringify(formOptions)); }, [formOptions]);
 
+  // --- LOCATION HANDLERS ---
   const availableProvinces = Object.keys(locationDB);
   const availableCities = formData.prov ? Object.keys(locationDB[formData.prov] || {}).sort() : [];
   const availableBarangays = (formData.prov && formData.mun_city) ? (locationDB[formData.prov][formData.mun_city] || []).sort() : [];
@@ -211,27 +225,84 @@ const ProjectFormModal = ({
     }, "Delete Barangay", "bg-red-600 hover:bg-red-700");
   }
 
-  const handleNumericDashInput = (e: React.ChangeEvent<HTMLInputElement>, field: 'cr_no' | 'ls_no') => {
-    const value = e.target.value.replace(/[^0-9-]/g, '');
-    setFormData({ ...formData, [field]: value });
+  // --- DYNAMIC DROPDOWN HANDLERS ---
+  const handleAddOption = (category: string, title: string) => {
+    setPromptValue('');
+    setPromptDialog({
+      show: true, title: `Add ${title}`, message: `Add a new custom option for ${title}.`, placeholder: `e.g. New ${title}`,
+      action: (newVal: string) => {
+        if (newVal && newVal.trim() !== '') {
+          const cleanVal = newVal.trim();
+          if (!formOptions[category as keyof typeof formOptions].includes(cleanVal)) {
+            setFormOptions((prev: any) => ({ ...prev, [category]: [...prev[category as keyof typeof formOptions], cleanVal] }));
+            showNotification(`Added ${cleanVal}!`, "success");
+          } else {
+            showNotification(`${cleanVal} already exists.`, "info");
+          }
+        }
+      }
+    });
+  };
+
+  const handleDeleteOption = (category: string, title: string, targetValue: string, formField: string) => {
+    if (!targetValue) return;
+    requestConfirm("Delete Option", `Are you sure you want to permanently delete '${targetValue}' from ${title} options?`, () => {
+      setFormOptions((prev: any) => ({ ...prev, [category]: prev[category].filter((item: string) => item !== targetValue) }));
+      
+      if (formField && (formData as any)[formField] === targetValue) {
+        setFormData(prev => ({ ...prev, [formField]: '' }));
+      }
+      if (category === 'crlsOptions') {
+        setFormData(prev => ({ ...prev, crls_options: (prev.crls_options || []).filter(item => item !== targetValue) }));
+      }
+      showNotification(`Deleted ${targetValue}.`, "success");
+    }, "Delete Option", "bg-red-600 hover:bg-red-700");
+  };
+
+  // --- CR & LS ARRAY HANDLERS ---
+  const handleArrayInput = (index: number, value: string, field: 'cr_nos' | 'ls_nos') => {
+    const cleanValue = value.replace(/[^a-zA-Z0-9-\s]/g, ''); // Allow alphanumeric, dashes, spaces
+    setFormData(prev => {
+      const newArr = [...prev[field]];
+      newArr[index] = cleanValue;
+      return { ...prev, [field]: newArr };
+    });
+  };
+
+  const addArrayField = (field: 'cr_nos' | 'ls_nos') => {
+    setFormData(prev => ({ ...prev, [field]: [...prev[field], ''] }));
+  };
+
+  const removeArrayField = (index: number, field: 'cr_nos' | 'ls_nos') => {
+    setFormData(prev => {
+      const newArr = [...prev[field]];
+      newArr.splice(index, 1);
+      return { ...prev, [field]: newArr.length ? newArr : [''] };
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Prepare payload and join the array into comma-separated strings
     const payload: any = { 
       ...formData,
+      cr_no: formData.cr_nos.filter((v: string) => v.trim() !== '').join(', '),
+      ls_no: formData.ls_nos.filter((v: string) => v.trim() !== '').join(', '),
       date_filed: formData.date_filed === '' ? null : formData.date_filed,
       date_issued: formData.date_issued === '' ? null : formData.date_issued,
       date_completion: formData.date_completion === '' ? null : formData.date_completion,
     }
+    delete payload.cr_nos; // Remove UI state arrays before sending to API
+    delete payload.ls_nos;
 
     const apiCall = appToEdit ? axios.patch(`${API_URL}${appToEdit.id}/`, payload) : axios.post(API_URL, payload);
 
     apiCall.then(() => {
         showNotification(appToEdit ? "Project updated successfully" : "New project created successfully", "success");
-        onSave(); // Triggers table refresh and closes modal
+        onSave();
       })
-      .catch(() => showNotification("Action failed! Check server connection.", "error")); // Removed 'err'
+      .catch(() => showNotification("Action failed! Check server connection.", "error"));
   }
 
   return (
@@ -263,29 +334,64 @@ const ProjectFormModal = ({
                     <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Owner / Developer</label>
                     <input type="text" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.proj_owner_dev} onChange={e => setFormData({...formData, proj_owner_dev: e.target.value})} />
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Project Type</label>
+                  
+                  {/* Dynamic Project Type */}
+                  <div className="flex flex-col relative">
+                    <div className="h-5 mb-2 flex items-center">
+                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Project Type</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
+                        <button type="button" onClick={() => handleAddOption('projTypes', 'Project Type')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.proj_type && (<button type="button" onClick={() => handleDeleteOption('projTypes', 'Project Type', formData.proj_type, 'proj_type')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                      </div>
+                    </div>
                     <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.proj_type} onChange={e => setFormData({...formData, proj_type: e.target.value})}>
                       <option value="" disabled>Select Type...</option>
-                      {projTypeOptionsList.map((type) => (<option key={type} value={type}>{type}</option>))}
+                      {formOptions.projTypes.map((type: string) => (<option key={type} value={type}>{type}</option>))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Application Type</label>
+
+                  {/* Dynamic Application Type */}
+                  <div className="flex flex-col relative">
+                    <div className="h-5 mb-2 flex items-center">
+                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Application Type</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
+                        <button type="button" onClick={() => handleAddOption('appTypes', 'Application Type')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.type_of_application && (<button type="button" onClick={() => handleDeleteOption('appTypes', 'Application Type', formData.type_of_application, 'type_of_application')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                      </div>
+                    </div>
                     <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.type_of_application} onChange={e => setFormData({...formData, type_of_application: e.target.value})}>
-                      <option value="New Application">New Application</option><option value="Reactivated">Reactivated</option><option value="Replacement">Replacement</option>
+                      <option value="" disabled>Select Type...</option>
+                      {formOptions.appTypes.map((type: string) => (<option key={type} value={type}>{type}</option>))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Current Status</label>
+
+                  {/* Dynamic Current Status */}
+                  <div className="flex flex-col relative">
+                    <div className="h-5 mb-2 flex items-center">
+                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Current Status</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
+                        <button type="button" onClick={() => handleAddOption('statusOptions', 'Status')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.status_of_application && (<button type="button" onClick={() => handleDeleteOption('statusOptions', 'Status', formData.status_of_application, 'status_of_application')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                      </div>
+                    </div>
                     <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.status_of_application} onChange={e => setFormData({...formData, status_of_application: e.target.value})}>
-                      <option value="Ongoing">Ongoing</option><option value="Approved">Approved</option><option value="Denied">Denied</option><option value="Endorsed to HREDRB">Endorsed to HREDRB</option>
+                      <option value="" disabled>Select Status...</option>
+                      {formOptions.statusOptions.map((status: string) => (<option key={status} value={status}>{status}</option>))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Main or Compliance</label>
+
+                  {/* Dynamic Main or Compliance */}
+                  <div className="flex flex-col relative">
+                    <div className="h-5 mb-2 flex items-center">
+                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Main or Compliance</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
+                        <button type="button" onClick={() => handleAddOption('mainCompOptions', 'Category')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.main_or_compliance && (<button type="button" onClick={() => handleDeleteOption('mainCompOptions', 'Category', formData.main_or_compliance, 'main_or_compliance')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                      </div>
+                    </div>
                     <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.main_or_compliance} onChange={e => setFormData({...formData, main_or_compliance: e.target.value})}>
-                      <option value="Main">Main</option><option value="Compliance">Compliance</option>
+                      <option value="" disabled>Select Category...</option>
+                      {formOptions.mainCompOptions.map((opt: string) => (<option key={opt} value={opt}>{opt}</option>))}
                     </select>
                   </div>
                 </div>
@@ -293,37 +399,63 @@ const ProjectFormModal = ({
 
               {/* MID SECTION */}
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h4 className="text-sm font-bold text-slate-800 mb-5 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-                  Certifications
-                </h4>
+                <div className="flex items-center justify-between mb-5">
+                  <h4 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                    Certifications
+                  </h4>
+                  <button type="button" onClick={() => handleAddOption('crlsOptions', 'Certification')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-2 py-1 rounded">+ Add Option</button>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                  {crlsOptionsList.map((option) => (
-                    <label key={option} className="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition-all">
-                      <input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500" value={option} checked={formData.crls_options?.includes(option) || false}
-                        onChange={(e) => {
-                          const isChecked = e.target.checked;
-                          setFormData(prev => ({
-                            ...prev, crls_options: isChecked ? [...(prev.crls_options || []), option] : (prev.crls_options || []).filter(item => item !== option)
-                          }));
-                        }}
-                      />
-                      <span className="text-slate-700 font-medium text-sm">{option}</span>
-                    </label>
+                  {formOptions.crlsOptions.map((option: string) => (
+                    <div key={option} className="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+                      <label className="flex items-center space-x-3 cursor-pointer w-full">
+                        <input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500" value={option} checked={formData.crls_options?.includes(option) || false}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setFormData(prev => ({
+                              ...prev, crls_options: isChecked ? [...(prev.crls_options || []), option] : (prev.crls_options || []).filter(item => item !== option)
+                            }));
+                          }}
+                        />
+                        <span className="text-slate-700 font-medium text-sm">{option}</span>
+                      </label>
+                      <button type="button" onClick={() => handleDeleteOption('crlsOptions', 'Certifications', option, '')} className="text-[10px] text-red-500 hover:underline font-bold px-1.5 py-0.5 rounded bg-red-50 ml-2">− Del</button>
+                    </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="flex flex-col relative group">
                     <div className="h-5 mb-2 flex justify-between items-center">
                       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">CR No.</label>
+                      <button type="button" onClick={() => addArrayField('cr_nos')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
                     </div>
-                    <input type="text" placeholder="0000-00-000" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.cr_no} onChange={(e) => handleNumericDashInput(e, 'cr_no')} />
+                    <div className="space-y-2">
+                      {formData.cr_nos.map((val: string, i: number) => (
+                        <div key={i} className="flex gap-2">
+                          <input type="text" placeholder="e.g. CR-1234" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'cr_nos')} />
+                          {formData.cr_nos.length > 1 && (
+                            <button type="button" onClick={() => removeArrayField(i, 'cr_nos')} className="text-red-500 px-3 hover:bg-red-50 rounded-xl font-bold text-lg transition-colors">−</button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex flex-col relative group">
                     <div className="h-5 mb-2 flex justify-between items-center">
                       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">LS No.</label>
+                      <button type="button" onClick={() => addArrayField('ls_nos')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
                     </div>
-                    <input type="text" placeholder="0000-00-000" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.ls_no} onChange={(e) => handleNumericDashInput(e, 'ls_no')} />
+                    <div className="space-y-2">
+                      {formData.ls_nos.map((val: string, i: number) => (
+                        <div key={i} className="flex gap-2">
+                          <input type="text" placeholder="e.g. LS-5678" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'ls_nos')} />
+                          {formData.ls_nos.length > 1 && (
+                            <button type="button" onClick={() => removeArrayField(i, 'ls_nos')} className="text-red-500 px-3 hover:bg-red-50 rounded-xl font-bold text-lg transition-colors">−</button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -426,8 +558,8 @@ const ProjectFormModal = ({
             <p className="text-slate-500 text-sm leading-relaxed text-center mb-6 px-2">{promptDialog.message}</p>
             <input type="text" autoFocus className="w-full mb-6 border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" placeholder={promptDialog.placeholder} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); } }} />
             <div className="flex flex-col gap-3">
-              <button onClick={() => { promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); }} className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-colors shadow-sm">Add Location</button>
-              <button onClick={() => setPromptDialog({ ...promptDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-sm transition-all">Cancel</button>
+              <button type="button" onClick={() => { promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); }} className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-colors shadow-sm">Save Selection</button>
+              <button type="button" onClick={() => setPromptDialog({ ...promptDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-sm transition-all">Cancel</button>
             </div>
           </div>
         </div>
@@ -446,6 +578,10 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentView, setCurrentView] = useState<'dashboard' | 'active' | 'archive'>('dashboard')
   
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingApp, setEditingApp] = useState<Application | null>(null)
@@ -489,6 +625,7 @@ export default function App() {
   useEffect(() => {
     setSelectedIds([]);
     setIsBulkMode(false);
+    setCurrentPage(1); // Reset to page 1 whenever filters change
   }, [currentView, searchTerm, filterStatus]);
 
   const activeApps = applications.filter(app => app.status_of_application !== 'Archived')
@@ -525,13 +662,18 @@ export default function App() {
   const filteredApps = displayApps.filter(app => {
     const matchesSearch = app.name_of_proj.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           app.mun_city.toLowerCase().includes(searchTerm.toLowerCase());
-    // Bypass the status filter entirely if we are in the archive view
     const matchesStatus = currentView === 'archive' || filterStatus === 'All' || app.status_of_application === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
+  // SORT & PAGINATE
+  const sortedApps = [...filteredApps].sort((a, b) => b.id - a.id); // Latest IDs first
+  const totalPages = Math.ceil(sortedApps.length / itemsPerPage);
+  const paginatedApps = sortedApps.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) setSelectedIds(filteredApps.map(app => app.id));
+    // Select all displayed on CURRENT PAGE
+    if (e.target.checked) setSelectedIds(paginatedApps.map(app => app.id));
     else setSelectedIds([]);
   };
 
@@ -545,11 +687,14 @@ export default function App() {
     let title = ''; let message = ''; let confirmText = ''; let confirmColor = ''; let apiCall: (id: number) => Promise<any>;
 
     if (action === 'archive') {
-      title = 'Archive Selected'; message = `Are you sure you want to archive ${selectedIds.length} projects?`; confirmText = 'Archive All'; confirmColor = 'bg-orange-500 hover:bg-orange-600'; apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' });
+      title = 'Archive Selected'; message = `Are you sure you want to archive ${selectedIds.length} projects?`; confirmText = 'Archive All'; confirmColor = 'bg-orange-500 hover:bg-orange-600'; 
+      apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived', date_archived: new Date().toISOString() });
     } else if (action === 'restore') {
-      title = 'Restore Selected'; message = `Are you sure you want to restore ${selectedIds.length} projects to Active?`; confirmText = 'Restore All'; confirmColor = 'bg-emerald-600 hover:bg-emerald-700'; apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Ongoing' });
+      title = 'Restore Selected'; message = `Are you sure you want to restore ${selectedIds.length} projects to Active?`; confirmText = 'Restore All'; confirmColor = 'bg-emerald-600 hover:bg-emerald-700'; 
+      apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Ongoing' });
     } else {
-      title = 'Delete Selected'; message = `Are you sure you want to permanently delete ${selectedIds.length} projects? This action cannot be undone.`; confirmText = 'Delete All'; confirmColor = 'bg-red-600 hover:bg-red-700'; apiCall = (id) => axios.delete(`${API_URL}${id}/`);
+      title = 'Delete Selected'; message = `Are you sure you want to permanently delete ${selectedIds.length} projects? This action cannot be undone.`; confirmText = 'Delete All'; confirmColor = 'bg-red-600 hover:bg-red-700'; 
+      apiCall = (id) => axios.delete(`${API_URL}${id}/`);
     }
 
     requestConfirm(title, message, () => {
@@ -567,8 +712,8 @@ export default function App() {
   };
 
   const handleExport = () => {
-    const dataToExport = filteredApps.map(app => ({
-      'Type of Application': app.type_of_application || '', 'Status of Application': app.status_of_application || '', 'New or Amended CRLS (Can choose many)': app.crls_options?.join(', ') || '', 'Main or Compliance': app.main_or_compliance || '', 'Date Filed': app.date_filed || '', 'Date Issued': app.date_issued || '', 'Date Completion': app.date_completion || '', 'CR No.': app.cr_no || '', 'LS No.': app.ls_no || '', 'Name of Proj': app.name_of_proj || '', 'Proj Owner Dev': app.proj_owner_dev || '', 'Prov': app.prov || '', 'Mun/City': app.mun_city || '', 'Street/Brgy': app.street_brgy || '', 'Proj Type': app.proj_type || ''
+    const dataToExport = sortedApps.map(app => ({
+      'Type of Application': app.type_of_application || '', 'Status of Application': app.status_of_application || '', 'New or Amended CRLS': app.crls_options?.join(', ') || '', 'Main or Compliance': app.main_or_compliance || '', 'Date Filed': app.date_filed || '', 'Date Issued': app.date_issued || '', 'Date Completion': app.date_completion || '', 'CR No.': app.cr_no || '', 'LS No.': app.ls_no || '', 'Name of Proj': app.name_of_proj || '', 'Proj Owner Dev': app.proj_owner_dev || '', 'Prov': app.prov || '', 'Mun/City': app.mun_city || '', 'Street/Brgy': app.street_brgy || '', 'Proj Type': app.proj_type || ''
     }));
 
     const ws = XLSX.utils.json_to_sheet(dataToExport);
@@ -597,7 +742,7 @@ export default function App() {
 
         jsonData.forEach((row) => {
           axios.post(API_URL, {
-            name_of_proj: row['Name of Proj'] || row['Project Name'] || 'Untitled Project', proj_owner_dev: row['Proj Owner Dev'] || '', proj_type: row['Proj Type'] || '', type_of_application: row['Type of Application'] || 'New Application', status_of_application: row['Status of Application'] || 'Ongoing', main_or_compliance: row['Main or Compliance'] || 'Main', prov: row['Prov'] || '', mun_city: row['Mun/City'] || '', street_brgy: row['Street/Brgy'] || '', cr_no: row['CR No.'] || row['CR No'] || '', ls_no: row['LS No.'] || row['LS No'] || '', crls_options: row['New or Amended CRLS (Can choose many)'] ? row['New or Amended CRLS (Can choose many)'].split(',').map((s: string) => s.trim()) : []
+            name_of_proj: row['Name of Proj'] || row['Project Name'] || 'Untitled Project', proj_owner_dev: row['Proj Owner Dev'] || '', proj_type: row['Proj Type'] || '', type_of_application: row['Type of Application'] || 'New Application', status_of_application: row['Status of Application'] || 'Ongoing', main_or_compliance: row['Main or Compliance'] || 'Main', prov: row['Prov'] || '', mun_city: row['Mun/City'] || '', street_brgy: row['Street/Brgy'] || '', cr_no: row['CR No.'] || row['CR No'] || '', ls_no: row['LS No.'] || row['LS No'] || '', crls_options: row['New or Amended CRLS'] ? row['New or Amended CRLS'].split(',').map((s: string) => s.trim()) : []
           })
           .then(() => fetchApplications())
           .catch(err => console.error("Import error:", err));
@@ -613,7 +758,7 @@ export default function App() {
 
   const handleSoftDelete = (id: number) => {
     requestConfirm("Archive Project", "Are you sure you want to move this project to the archives?", () => {
-      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' })
+      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived', date_archived: new Date().toISOString() })
         .then(() => { fetchApplications(); showNotification("Project successfully archived.", "success"); })
         .catch(() => showNotification("Failed to archive project.", "error"));
     }, "Archive Project", "bg-orange-500 hover:bg-orange-600");
@@ -758,7 +903,6 @@ export default function App() {
                           <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontWeight: 600 }} />
                           <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={60}>
                             {chartData.map((_, index) => (<Cell key={`cell-${index}`} fill={chartData[index].color} />))} 
-                            {/* Removed 'entry' and replaced with '_' */}
                           </Bar>
                         </BarChart>
                       </ResponsiveContainer>
@@ -837,7 +981,6 @@ export default function App() {
                   <input type="text" placeholder="Search projects or locations..." className="w-full pl-11 pr-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm font-medium transition-all shadow-sm placeholder:text-slate-400" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 
-                {/* ONLY show the status dropdown if we are viewing Active Projects */}
                 {currentView === 'active' && (
                   <select className="px-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm font-semibold text-slate-700 min-w-[180px] transition-all shadow-sm cursor-pointer" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
                     <option value="All">All Statuses</option>
@@ -853,7 +996,7 @@ export default function App() {
                 <table className="w-full text-left border-collapse table-fixed">
                   <thead className="bg-slate-50 border-b border-slate-200">
                     <tr>
-                      {isBulkMode && (<th className="px-6 py-4 w-[5%]"><input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={filteredApps.length > 0 && selectedIds.length === filteredApps.length} onChange={handleSelectAll} /></th>)}
+                      {isBulkMode && (<th className="px-6 py-4 w-[5%]"><input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={paginatedApps.length > 0 && paginatedApps.every(app => selectedIds.includes(app.id))} onChange={handleSelectAll} /></th>)}
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[30%]">Project Details</th>
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[20%]">Location</th>
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[15%]">Status</th>
@@ -864,10 +1007,10 @@ export default function App() {
                   <tbody className="divide-y divide-slate-100">
                     {isLoading ? (
                       <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-20 text-center"><div className="flex flex-col items-center justify-center space-y-4"><div className="w-10 h-10 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div><p className="text-slate-500 text-sm font-semibold animate-pulse">Fetching records...</p></div></td></tr>
-                    ) : filteredApps.length === 0 ? (
+                    ) : paginatedApps.length === 0 ? (
                       <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-12 text-center text-slate-500 text-sm font-medium">No matching records found.</td></tr>
                     ) : (
-                      filteredApps.map((app) => (
+                      paginatedApps.map((app) => (
                         <tr key={app.id} className={`hover:bg-slate-50 transition-colors ${selectedIds.includes(app.id) ? 'bg-blue-50/50' : ''}`}>
                           {isBulkMode && (<td className="px-6 py-5"><input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={selectedIds.includes(app.id)} onChange={() => handleSelectRow(app.id)} /></td>)}
                           <td className="px-6 py-5">
@@ -886,12 +1029,22 @@ export default function App() {
                             <div className="text-sm font-medium text-slate-500">{app.prov}</div>
                           </td>
                           <td className="px-6 py-5">
-                            <div className="flex items-center gap-2 whitespace-nowrap">
-                              <span className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${app.status_of_application === 'Archived' ? 'bg-slate-400' : app.status_of_application === 'Approved' ? 'bg-emerald-500' : app.status_of_application === 'Denied' ? 'bg-red-500' : app.status_of_application === 'Endorsed to HREDRB' ? 'bg-amber-500' : 'bg-blue-500'}`}></span>
-                              <span className="text-sm font-bold text-slate-700">{app.status_of_application}</span>
+                            <div className="flex flex-col gap-1">
+                              <div className="flex items-center gap-2 whitespace-nowrap">
+                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${app.status_of_application === 'Archived' ? 'bg-slate-400' : app.status_of_application === 'Approved' ? 'bg-emerald-500' : app.status_of_application === 'Denied' ? 'bg-red-500' : app.status_of_application === 'Endorsed to HREDRB' ? 'bg-amber-500' : 'bg-blue-500'}`}></span>
+                                <span className="text-sm font-bold text-slate-700">{app.status_of_application}</span>
+                              </div>
+                              {/* Display Archive Date if applicable */}
+                              {currentView === 'archive' && app.date_archived && (
+                                <div className="text-[10px] font-bold text-slate-400 ml-4">
+                                  Archived: {new Date(app.date_archived).toLocaleDateString()}
+                                </div>
+                              )}
                             </div>
                           </td>
-                          <td className="px-6 py-5 text-slate-600 text-sm font-mono font-medium">CR: {app.cr_no || '-'}<br/>LS: {app.ls_no || '-'}</td>
+                          <td className="px-6 py-5 text-slate-600 text-sm font-mono font-medium">
+                            CR: {app.cr_no || '-'}<br/>LS: {app.ls_no || '-'}
+                          </td>
                           <td className="px-6 py-5 text-right space-x-2">
                             {currentView === 'active' ? (
                               <>
@@ -912,6 +1065,31 @@ export default function App() {
                     )}
                   </tbody>
                 </table>
+                
+                {/* --- PAGINATION FOOTER --- */}
+                {!isLoading && totalPages > 1 && (
+                  <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                    <span className="text-sm text-slate-500 font-medium">
+                      Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, sortedApps.length)} of {sortedApps.length} projects
+                    </span>
+                    <div className="flex gap-2">
+                      <button 
+                        disabled={currentPage === 1} 
+                        onClick={() => setCurrentPage(prev => prev - 1)} 
+                        className="px-4 py-2 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                      >
+                        Previous
+                      </button>
+                      <button 
+                        disabled={currentPage === totalPages} 
+                        onClick={() => setCurrentPage(prev => prev + 1)} 
+                        className="px-4 py-2 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -1017,7 +1195,6 @@ export default function App() {
         </div>
       )}
 
-      {/* I JUST INSERTED THIS EXACT BLOCK HERE. NOTHING ELSE CHANGED. */}
       {isModalOpen && (
         <ProjectFormModal 
           appToEdit={editingApp} 
