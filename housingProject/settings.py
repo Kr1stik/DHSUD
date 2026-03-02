@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%c1=%vhy0#d=o)2rdfdpu5h+i+h=a76#y&3b(9wb!eavc^+6-x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -131,3 +131,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # Only logged-in users (your encoder) can use the API
     ]
 }
+
+CORS_ALLOWED_ORIGINS = ["https://dhsud-hredrd.vercel.app"]

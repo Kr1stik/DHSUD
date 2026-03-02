@@ -3,3 +3,4 @@ django-import-export
 djangorestframework
 django-cors-headers
 Django
+gunicorn
