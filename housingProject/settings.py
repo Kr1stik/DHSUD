@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%c1=%vhy0#d=o)2rdfdpu5h+i+h=a76#y&3b(9wb!eavc^+6-x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,11 +120,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
-
 # Set default permissions for the REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -132,4 +127,14 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOWED_ORIGINS = ["https://dhsud-hredrd.vercel.app"]
+CORS_ALLOWED_ORIGINS = [
+    "https://dhsud.vercel.app",
+    "https://dhsud-hdredrd.vercel.app",
+    "http://localhost:5173",
+    "https://dhsud-819b.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://dhsud.vercel.app",
+    "https://dhsud-hdredrd.vercel.app",
+]

@@ -3,6 +3,13 @@ import axios from 'axios'
 import * as XLSX from 'xlsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie, Legend } from 'recharts';
 
+// ==========================================
+// 🌐 API CONFIGURATION
+// REPLACE the URL below with your actual Render backend URL!
+// Example: "https://dhsud-backend-xyz.onrender.com/api/applications/"
+// ==========================================
+const API_URL = 'https://YOUR-RENDER-URL.onrender.com/api/applications/';
+
 // --- ICON COMPONENTS ---
 const NavDashboardIcon = () => (<svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>);
 const NavFolderIcon = () => (<svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>);
@@ -218,7 +225,7 @@ const ProjectFormModal = ({
       date_completion: formData.date_completion === '' ? null : formData.date_completion,
     }
 
-    const apiCall = appToEdit ? axios.patch(`http://127.0.0.1:8000/api/applications/${appToEdit.id}/`, payload) : axios.post('http://127.0.0.1:8000/api/applications/', payload);
+    const apiCall = appToEdit ? axios.patch(`${API_URL}${appToEdit.id}/`, payload) : axios.post(API_URL, payload);
 
     apiCall.then(() => {
         showNotification(appToEdit ? "Project updated successfully" : "New project created successfully", "success");
@@ -466,7 +473,7 @@ export default function App() {
 
   const fetchApplications = () => {
     setIsLoading(true);
-    axios.get('http://127.0.0.1:8000/api/applications/')
+    axios.get(API_URL)
       .then(response => setApplications(response.data))
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -538,11 +545,11 @@ export default function App() {
     let title = ''; let message = ''; let confirmText = ''; let confirmColor = ''; let apiCall: (id: number) => Promise<any>;
 
     if (action === 'archive') {
-      title = 'Archive Selected'; message = `Are you sure you want to archive ${selectedIds.length} projects?`; confirmText = 'Archive All'; confirmColor = 'bg-orange-500 hover:bg-orange-600'; apiCall = (id) => axios.patch(`http://127.0.0.1:8000/api/applications/${id}/`, { status_of_application: 'Archived' });
+      title = 'Archive Selected'; message = `Are you sure you want to archive ${selectedIds.length} projects?`; confirmText = 'Archive All'; confirmColor = 'bg-orange-500 hover:bg-orange-600'; apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' });
     } else if (action === 'restore') {
-      title = 'Restore Selected'; message = `Are you sure you want to restore ${selectedIds.length} projects to Active?`; confirmText = 'Restore All'; confirmColor = 'bg-emerald-600 hover:bg-emerald-700'; apiCall = (id) => axios.patch(`http://127.0.0.1:8000/api/applications/${id}/`, { status_of_application: 'Ongoing' });
+      title = 'Restore Selected'; message = `Are you sure you want to restore ${selectedIds.length} projects to Active?`; confirmText = 'Restore All'; confirmColor = 'bg-emerald-600 hover:bg-emerald-700'; apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Ongoing' });
     } else {
-      title = 'Delete Selected'; message = `Are you sure you want to permanently delete ${selectedIds.length} projects? This action cannot be undone.`; confirmText = 'Delete All'; confirmColor = 'bg-red-600 hover:bg-red-700'; apiCall = (id) => axios.delete(`http://127.0.0.1:8000/api/applications/${id}/`);
+      title = 'Delete Selected'; message = `Are you sure you want to permanently delete ${selectedIds.length} projects? This action cannot be undone.`; confirmText = 'Delete All'; confirmColor = 'bg-red-600 hover:bg-red-700'; apiCall = (id) => axios.delete(`${API_URL}${id}/`);
     }
 
     requestConfirm(title, message, () => {
@@ -589,7 +596,7 @@ export default function App() {
         }
 
         jsonData.forEach((row) => {
-          axios.post('http://127.0.0.1:8000/api/applications/', {
+          axios.post(API_URL, {
             name_of_proj: row['Name of Proj'] || row['Project Name'] || 'Untitled Project', proj_owner_dev: row['Proj Owner Dev'] || '', proj_type: row['Proj Type'] || '', type_of_application: row['Type of Application'] || 'New Application', status_of_application: row['Status of Application'] || 'Ongoing', main_or_compliance: row['Main or Compliance'] || 'Main', prov: row['Prov'] || '', mun_city: row['Mun/City'] || '', street_brgy: row['Street/Brgy'] || '', cr_no: row['CR No.'] || row['CR No'] || '', ls_no: row['LS No.'] || row['LS No'] || '', crls_options: row['New or Amended CRLS (Can choose many)'] ? row['New or Amended CRLS (Can choose many)'].split(',').map((s: string) => s.trim()) : []
           })
           .then(() => fetchApplications())
@@ -606,7 +613,7 @@ export default function App() {
 
   const handleSoftDelete = (id: number) => {
     requestConfirm("Archive Project", "Are you sure you want to move this project to the archives?", () => {
-      axios.patch(`http://127.0.0.1:8000/api/applications/${id}/`, { status_of_application: 'Archived' })
+      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' })
         .then(() => { fetchApplications(); showNotification("Project successfully archived.", "success"); })
         .catch(() => showNotification("Failed to archive project.", "error"));
     }, "Archive Project", "bg-orange-500 hover:bg-orange-600");
@@ -614,7 +621,7 @@ export default function App() {
 
   const handleRestore = (id: number) => {
     requestConfirm("Restore Project", "Do you want to restore this project back to the active list?", () => {
-      axios.patch(`http://127.0.0.1:8000/api/applications/${id}/`, { status_of_application: 'Ongoing' })
+      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Ongoing' })
         .then(() => { fetchApplications(); showNotification("Project successfully restored.", "success"); })
         .catch(() => showNotification("Failed to restore project.", "error"));
     }, "Restore Project", "bg-emerald-600 hover:bg-emerald-700");
@@ -622,7 +629,7 @@ export default function App() {
 
   const handleHardDelete = (id: number) => {
     requestConfirm("Permanent Deletion", "Are you sure you want to permanently delete this project? This action cannot be undone.", () => {
-      axios.delete(`http://127.0.0.1:8000/api/applications/${id}/`)
+      axios.delete(`${API_URL}${id}/`)
         .then(() => { fetchApplications(); showNotification("Project successfully deleted.", "success"); })
         .catch(() => showNotification("Failed to delete project.", "error"));
     }, "Delete Forever", "bg-red-600 hover:bg-red-700");
@@ -911,18 +918,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* --- RENDER THE ISOLATED PROJECT MODAL --- */}
-      {isModalOpen && (
-        <ProjectFormModal 
-          appToEdit={editingApp} 
-          onClose={() => setIsModalOpen(false)} 
-          onSave={() => { setIsModalOpen(false); fetchApplications(); }} 
-          showNotification={showNotification}
-          requestConfirm={requestConfirm}
-        />
-      )}
-
-      {/* --- RENDER THE VIEW DETAILS MODAL --- */}
+      {/* --- RENDER THE REMAINDER OF YOUR VIEW DETAILS MODAL --- */}
       {viewingApp && (
         <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
