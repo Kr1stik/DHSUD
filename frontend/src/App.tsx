@@ -224,7 +224,7 @@ const ProjectFormModal = ({
         showNotification(appToEdit ? "Project updated successfully" : "New project created successfully", "success");
         onSave(); // Triggers table refresh and closes modal
       })
-      .catch(err => showNotification("Action failed! Check server connection.", "error"));
+      .catch(() => showNotification("Action failed! Check server connection.", "error")); // Removed 'err'
   }
 
   return (
@@ -750,7 +750,8 @@ export default function App() {
                           <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} />
                           <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontWeight: 600 }} />
                           <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={60}>
-                            {chartData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.color} />))}
+                            {chartData.map((_, index) => (<Cell key={`cell-${index}`} fill={chartData[index].color} />))} 
+                            {/* Removed 'entry' and replaced with '_' */}
                           </Bar>
                         </BarChart>
                       </ResponsiveContainer>
