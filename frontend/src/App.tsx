@@ -9,15 +9,17 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const API_URL = 'https://dhsud-819b.onrender.com/api/applications/';
 
 // --- ICON COMPONENTS ---
-const NavDashboardIcon = () => (<svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>);
-const NavFolderIcon = () => (<svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>);
-const NavArchiveIcon = () => (<svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>);
-const EditIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>);
-const ArchiveIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>);
-const RestoreIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" /></svg>);
-const TrashIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>);
-const SearchIcon = () => (<svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>);
-const ViewIcon = () => (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>);
+const NavDashboardIcon = () => (<svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>);
+const NavFolderIcon = () => (<svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>);
+const NavArchiveIcon = () => (<svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>);
+const NavAboutIcon = () => (<svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>);
+const HelpIcon = () => (<svg className="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>);
+const EditIcon = () => (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>);
+const ArchiveIcon = () => (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>);
+const RestoreIcon = () => (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" /></svg>);
+const TrashIcon = () => (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>);
+const SearchIcon = () => (<svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>);
+const ViewIcon = () => (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>);
 
 // --- CONSTANTS & INITIAL DATA ---
 const initialOptions = {
@@ -102,7 +104,7 @@ interface Application {
 }
 
 // ==========================================
-// 🚀 NEW: ISOLATED PROJECT FORM MODAL
+// 🚀 ISOLATED PROJECT FORM MODAL
 // ==========================================
 const ProjectFormModal = ({ 
   appToEdit, 
@@ -120,7 +122,7 @@ const ProjectFormModal = ({
   
   const emptyForm = {
     name_of_proj: '', proj_owner_dev: '', status_of_application: 'Ongoing', type_of_application: 'New Application', 
-    cr_nos: [''], ls_nos: [''], // Utilizing Arrays for dynamic inputs
+    cr_nos: [''], ls_nos: [''],
     proj_type: '', main_or_compliance: 'Main', date_filed: '', date_issued: '', date_completion: '', prov: '', mun_city: '', street_brgy: '', crls_options: [] as string[]
   };
 
@@ -261,7 +263,7 @@ const ProjectFormModal = ({
 
   // --- CR & LS ARRAY HANDLERS ---
   const handleArrayInput = (index: number, value: string, field: 'cr_nos' | 'ls_nos') => {
-    const cleanValue = value.replace(/[^a-zA-Z0-9-\s]/g, ''); // Allow alphanumeric, dashes, spaces
+    const cleanValue = value.replace(/[^a-zA-Z0-9-\s]/g, ''); 
     setFormData(prev => {
       const newArr = [...prev[field]];
       newArr[index] = cleanValue;
@@ -284,7 +286,6 @@ const ProjectFormModal = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Prepare payload and join the array into comma-separated strings
     const payload: any = { 
       ...formData,
       cr_no: formData.cr_nos.filter((v: string) => v.trim() !== '').join(', '),
@@ -293,7 +294,7 @@ const ProjectFormModal = ({
       date_issued: formData.date_issued === '' ? null : formData.date_issued,
       date_completion: formData.date_completion === '' ? null : formData.date_completion,
     }
-    delete payload.cr_nos; // Remove UI state arrays before sending to API
+    delete payload.cr_nos; 
     delete payload.ls_nos;
 
     const apiCall = appToEdit ? axios.patch(`${API_URL}${appToEdit.id}/`, payload) : axios.post(API_URL, payload);
@@ -310,9 +311,9 @@ const ProjectFormModal = ({
       <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-50">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
           <div className="px-7 py-5 border-b border-slate-200 flex justify-between items-center">
-            <h3 className="text-xl font-bold text-slate-800">{appToEdit ? 'Edit Project' : 'Add New Project'}</h3>
+            <h3 className="text-2xl font-bold text-slate-800">{appToEdit ? 'Edit Project' : 'Add New Project'}</h3>
             <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1 hover:bg-slate-100 rounded-lg transition-colors">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           </div>
           
@@ -321,30 +322,30 @@ const ProjectFormModal = ({
               
               {/* TOP SECTION */}
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h4 className="text-sm font-bold text-slate-800 mb-5 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <h4 className="text-base font-bold text-slate-800 mb-5 flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   Project Details
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="col-span-1 md:col-span-2">
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Project Name *</label>
-                    <input required type="text" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.name_of_proj} onChange={e => setFormData({...formData, name_of_proj: e.target.value})} />
+                    <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Project Name *</label>
+                    <input required type="text" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.name_of_proj} onChange={e => setFormData({...formData, name_of_proj: e.target.value})} />
                   </div>
                   <div className="col-span-1 md:col-span-2">
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Owner / Developer</label>
-                    <input type="text" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.proj_owner_dev} onChange={e => setFormData({...formData, proj_owner_dev: e.target.value})} />
+                    <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Owner / Developer</label>
+                    <input type="text" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={formData.proj_owner_dev} onChange={e => setFormData({...formData, proj_owner_dev: e.target.value})} />
                   </div>
                   
                   {/* Dynamic Project Type */}
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Project Type</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        <button type="button" onClick={() => handleAddOption('projTypes', 'Project Type')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
-                        {formData.proj_type && (<button type="button" onClick={() => handleDeleteOption('projTypes', 'Project Type', formData.proj_type, 'proj_type')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Project Type</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        <button type="button" onClick={() => handleAddOption('projTypes', 'Project Type')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.proj_type && (<button type="button" onClick={() => handleDeleteOption('projTypes', 'Project Type', formData.proj_type, 'proj_type')} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.proj_type} onChange={e => setFormData({...formData, proj_type: e.target.value})}>
+                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.proj_type} onChange={e => setFormData({...formData, proj_type: e.target.value})}>
                       <option value="" disabled>Select Type...</option>
                       {formOptions.projTypes.map((type: string) => (<option key={type} value={type}>{type}</option>))}
                     </select>
@@ -352,14 +353,14 @@ const ProjectFormModal = ({
 
                   {/* Dynamic Application Type */}
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Application Type</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        <button type="button" onClick={() => handleAddOption('appTypes', 'Application Type')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
-                        {formData.type_of_application && (<button type="button" onClick={() => handleDeleteOption('appTypes', 'Application Type', formData.type_of_application, 'type_of_application')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Application Type</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        <button type="button" onClick={() => handleAddOption('appTypes', 'Application Type')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.type_of_application && (<button type="button" onClick={() => handleDeleteOption('appTypes', 'Application Type', formData.type_of_application, 'type_of_application')} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.type_of_application} onChange={e => setFormData({...formData, type_of_application: e.target.value})}>
+                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.type_of_application} onChange={e => setFormData({...formData, type_of_application: e.target.value})}>
                       <option value="" disabled>Select Type...</option>
                       {formOptions.appTypes.map((type: string) => (<option key={type} value={type}>{type}</option>))}
                     </select>
@@ -367,14 +368,14 @@ const ProjectFormModal = ({
 
                   {/* Dynamic Current Status */}
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Current Status</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        <button type="button" onClick={() => handleAddOption('statusOptions', 'Status')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
-                        {formData.status_of_application && (<button type="button" onClick={() => handleDeleteOption('statusOptions', 'Status', formData.status_of_application, 'status_of_application')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Current Status</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        <button type="button" onClick={() => handleAddOption('statusOptions', 'Status')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.status_of_application && (<button type="button" onClick={() => handleDeleteOption('statusOptions', 'Status', formData.status_of_application, 'status_of_application')} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.status_of_application} onChange={e => setFormData({...formData, status_of_application: e.target.value})}>
+                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.status_of_application} onChange={e => setFormData({...formData, status_of_application: e.target.value})}>
                       <option value="" disabled>Select Status...</option>
                       {formOptions.statusOptions.map((status: string) => (<option key={status} value={status}>{status}</option>))}
                     </select>
@@ -382,14 +383,14 @@ const ProjectFormModal = ({
 
                   {/* Dynamic Main or Compliance */}
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Main or Compliance</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        <button type="button" onClick={() => handleAddOption('mainCompOptions', 'Category')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
-                        {formData.main_or_compliance && (<button type="button" onClick={() => handleDeleteOption('mainCompOptions', 'Category', formData.main_or_compliance, 'main_or_compliance')} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Main or Compliance</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        <button type="button" onClick={() => handleAddOption('mainCompOptions', 'Category')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                        {formData.main_or_compliance && (<button type="button" onClick={() => handleDeleteOption('mainCompOptions', 'Category', formData.main_or_compliance, 'main_or_compliance')} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.main_or_compliance} onChange={e => setFormData({...formData, main_or_compliance: e.target.value})}>
+                    <select className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.main_or_compliance} onChange={e => setFormData({...formData, main_or_compliance: e.target.value})}>
                       <option value="" disabled>Select Category...</option>
                       {formOptions.mainCompOptions.map((opt: string) => (<option key={opt} value={opt}>{opt}</option>))}
                     </select>
@@ -400,17 +401,17 @@ const ProjectFormModal = ({
               {/* MID SECTION */}
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                 <div className="flex items-center justify-between mb-5">
-                  <h4 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                  <h4 className="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
                     Certifications
                   </h4>
-                  <button type="button" onClick={() => handleAddOption('crlsOptions', 'Certification')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-2 py-1 rounded">+ Add Option</button>
+                  <button type="button" onClick={() => handleAddOption('crlsOptions', 'Certification')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-3 py-1.5 rounded">+ Add Option</button>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                   {formOptions.crlsOptions.map((option: string) => (
                     <div key={option} className="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
                       <label className="flex items-center space-x-3 cursor-pointer w-full">
-                        <input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500" value={option} checked={formData.crls_options?.includes(option) || false}
+                        <input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500" value={option} checked={formData.crls_options?.includes(option) || false}
                           onChange={(e) => {
                             const isChecked = e.target.checked;
                             setFormData(prev => ({
@@ -418,40 +419,40 @@ const ProjectFormModal = ({
                             }));
                           }}
                         />
-                        <span className="text-slate-700 font-medium text-sm">{option}</span>
+                        <span className="text-slate-700 font-medium text-base">{option}</span>
                       </label>
-                      <button type="button" onClick={() => handleDeleteOption('crlsOptions', 'Certifications', option, '')} className="text-[10px] text-red-500 hover:underline font-bold px-1.5 py-0.5 rounded bg-red-50 ml-2">− Del</button>
+                      <button type="button" onClick={() => handleDeleteOption('crlsOptions', 'Certifications', option, '')} className="text-xs text-red-500 hover:underline font-bold px-2 py-1 rounded bg-red-50 ml-2">− Del</button>
                     </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="flex flex-col relative group">
-                    <div className="h-5 mb-2 flex justify-between items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">CR No.</label>
-                      <button type="button" onClick={() => addArrayField('cr_nos')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                    <div className="h-6 mb-2 flex justify-between items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">CR No.</label>
+                      <button type="button" onClick={() => addArrayField('cr_nos')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-2 py-1 rounded">+ Add</button>
                     </div>
                     <div className="space-y-2">
                       {formData.cr_nos.map((val: string, i: number) => (
                         <div key={i} className="flex gap-2">
-                          <input type="text" placeholder="e.g. CR-1234" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'cr_nos')} />
+                          <input type="text" placeholder="e.g. CR-1234" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'cr_nos')} />
                           {formData.cr_nos.length > 1 && (
-                            <button type="button" onClick={() => removeArrayField(i, 'cr_nos')} className="text-red-500 px-3 hover:bg-red-50 rounded-xl font-bold text-lg transition-colors">−</button>
+                            <button type="button" onClick={() => removeArrayField(i, 'cr_nos')} className="text-red-500 px-4 hover:bg-red-50 rounded-xl font-bold text-xl transition-colors">−</button>
                           )}
                         </div>
                       ))}
                     </div>
                   </div>
                   <div className="flex flex-col relative group">
-                    <div className="h-5 mb-2 flex justify-between items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">LS No.</label>
-                      <button type="button" onClick={() => addArrayField('ls_nos')} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>
+                    <div className="h-6 mb-2 flex justify-between items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">LS No.</label>
+                      <button type="button" onClick={() => addArrayField('ls_nos')} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-2 py-1 rounded">+ Add</button>
                     </div>
                     <div className="space-y-2">
                       {formData.ls_nos.map((val: string, i: number) => (
                         <div key={i} className="flex gap-2">
-                          <input type="text" placeholder="e.g. LS-5678" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'ls_nos')} />
+                          <input type="text" placeholder="e.g. LS-5678" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" value={val} onChange={(e) => handleArrayInput(i, e.target.value, 'ls_nos')} />
                           {formData.ls_nos.length > 1 && (
-                            <button type="button" onClick={() => removeArrayField(i, 'ls_nos')} className="text-red-500 px-3 hover:bg-red-50 rounded-xl font-bold text-lg transition-colors">−</button>
+                            <button type="button" onClick={() => removeArrayField(i, 'ls_nos')} className="text-red-500 px-4 hover:bg-red-50 rounded-xl font-bold text-xl transition-colors">−</button>
                           )}
                         </div>
                       ))}
@@ -462,16 +463,16 @@ const ProjectFormModal = ({
 
               {/* LOCATION SECTION */}
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h4 className="text-sm font-bold text-slate-800 mb-5 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <h4 className="text-base font-bold text-slate-800 mb-5 flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                   Location Details
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Province</label>
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Province</label>
                     </div>
-                    <select required className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" 
+                    <select required className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" 
                       value={formData.prov} onChange={e => setFormData({...formData, prov: e.target.value, mun_city: '', street_brgy: ''})}
                     >
                       <option value="" disabled>Select Province...</option>
@@ -479,14 +480,14 @@ const ProjectFormModal = ({
                     </select>
                   </div>
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Municipality / City</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        {formData.prov && (<button type="button" onClick={handleAddCity} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>)}
-                        {formData.mun_city && (<button type="button" onClick={handleDeleteCity} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Municipality / City</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        {formData.prov && (<button type="button" onClick={handleAddCity} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>)}
+                        {formData.mun_city && (<button type="button" onClick={handleDeleteCity} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select required disabled={!formData.prov} className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer disabled:bg-slate-50 disabled:text-slate-400" 
+                    <select required disabled={!formData.prov} className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer disabled:bg-slate-50 disabled:text-slate-400" 
                       value={formData.mun_city} onChange={e => setFormData({...formData, mun_city: e.target.value, street_brgy: ''})}
                     >
                       <option value="" disabled>Select City/Mun...</option>
@@ -494,14 +495,14 @@ const ProjectFormModal = ({
                     </select>
                   </div>
                   <div className="flex flex-col relative">
-                    <div className="h-5 mb-2 flex items-center">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Barangay</label>
-                      <div className="absolute right-0 top-0 flex gap-1 h-5 items-center">
-                        {formData.mun_city && (<button type="button" onClick={handleAddBrgy} className="whitespace-nowrap text-[10px] text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>)}
-                        {formData.street_brgy && (<button type="button" onClick={handleDeleteBrgy} className="whitespace-nowrap text-[10px] text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
+                    <div className="h-6 mb-2 flex items-center">
+                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Barangay</label>
+                      <div className="absolute right-0 top-0 flex gap-1 h-6 items-center">
+                        {formData.mun_city && (<button type="button" onClick={handleAddBrgy} className="whitespace-nowrap text-xs text-blue-600 hover:underline font-bold bg-blue-50 px-1.5 py-0.5 rounded">+ Add</button>)}
+                        {formData.street_brgy && (<button type="button" onClick={handleDeleteBrgy} className="whitespace-nowrap text-xs text-red-500 hover:underline font-bold bg-red-50 px-1.5 py-0.5 rounded">− Del</button>)}
                       </div>
                     </div>
-                    <select required disabled={!formData.mun_city || availableBarangays.length === 0} className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer disabled:bg-slate-50 disabled:text-slate-400" 
+                    <select required disabled={!formData.mun_city || availableBarangays.length === 0} className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer disabled:bg-slate-50 disabled:text-slate-400" 
                       value={formData.street_brgy} onChange={e => setFormData({...formData, street_brgy: e.target.value})}
                     >
                       <option value="" disabled>Select Barangay...</option>
@@ -513,22 +514,22 @@ const ProjectFormModal = ({
 
               {/* DATES SECTION */}
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h4 className="text-sm font-bold text-slate-800 mb-5 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                <h4 className="text-base font-bold text-slate-800 mb-5 flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                   Important Dates
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Date Filed</label>
-                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_filed || ''} onChange={e => setFormData({...formData, date_filed: e.target.value})} />
+                    <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Date Filed</label>
+                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_filed || ''} onChange={e => setFormData({...formData, date_filed: e.target.value})} />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Date Issued</label>
-                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_issued || ''} onChange={e => setFormData({...formData, date_issued: e.target.value})} />
+                    <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Date Issued</label>
+                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_issued || ''} onChange={e => setFormData({...formData, date_issued: e.target.value})} />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Date Completion</label>
-                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_completion || ''} onChange={e => setFormData({...formData, date_completion: e.target.value})} />
+                    <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Date Completion</label>
+                    <input type="date" className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm cursor-pointer" value={formData.date_completion || ''} onChange={e => setFormData({...formData, date_completion: e.target.value})} />
                   </div>
                 </div>
               </div>
@@ -536,8 +537,8 @@ const ProjectFormModal = ({
           </div>
           
           <div className="px-7 py-5 border-t border-slate-200 bg-white flex justify-end gap-3 rounded-b-2xl">
-            <button type="button" onClick={onClose} className="px-6 py-2.5 text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl font-bold text-sm transition-colors shadow-sm">Cancel</button>
-            <button type="submit" form="app-form" className="px-7 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm transition-colors shadow-sm">
+            <button type="button" onClick={onClose} className="px-6 py-3 text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl font-bold text-base transition-colors shadow-sm">Cancel</button>
+            <button type="submit" form="app-form" className="px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-base transition-colors shadow-sm">
               {appToEdit ? 'Save Changes' : 'Create Project'}
             </button>
           </div>
@@ -547,19 +548,19 @@ const ProjectFormModal = ({
       {/* Embedded Prompt Dialog */}
       {promptDialog.show && (
         <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-[80]">
-          <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-sm p-8 relative animate-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-md p-8 relative animate-in zoom-in-95 duration-200">
             <button onClick={() => setPromptDialog({ ...promptDialog, show: false })} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-100 rounded-xl transition-all">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div className="mx-auto mb-6 w-16 h-16 rounded-[20px] flex items-center justify-center bg-blue-50 text-blue-500">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 text-center mb-2">{promptDialog.title}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed text-center mb-6 px-2">{promptDialog.message}</p>
-            <input type="text" autoFocus className="w-full mb-6 border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" placeholder={promptDialog.placeholder} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); } }} />
+            <h3 className="text-3xl font-bold text-slate-800 text-center mb-2">{promptDialog.title}</h3>
+            <p className="text-slate-500 text-base leading-relaxed text-center mb-6 px-2">{promptDialog.message}</p>
+            <input type="text" autoFocus className="w-full mb-6 border border-slate-300 rounded-xl px-4 py-3 bg-white text-base text-slate-800 font-medium outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm" placeholder={promptDialog.placeholder} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); } }} />
             <div className="flex flex-col gap-3">
-              <button type="button" onClick={() => { promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); }} className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-colors shadow-sm">Save Selection</button>
-              <button type="button" onClick={() => setPromptDialog({ ...promptDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-sm transition-all">Cancel</button>
+              <button type="button" onClick={() => { promptDialog.action?.(promptValue); setPromptDialog({ ...promptDialog, show: false }); }} className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base transition-colors shadow-sm">Save Selection</button>
+              <button type="button" onClick={() => setPromptDialog({ ...promptDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-base transition-all">Cancel</button>
             </div>
           </div>
         </div>
@@ -576,11 +577,14 @@ export default function App() {
   const [filterStatus, setFilterStatus] = useState('All') 
   const [applications, setApplications] = useState<Application[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [currentView, setCurrentView] = useState<'dashboard' | 'active' | 'archive'>('dashboard')
+  const [currentView, setCurrentView] = useState<'dashboard' | 'active' | 'archive' | 'about'>('dashboard')
   
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  // Help Modal State
+  const [showHelp, setShowHelp] = useState(false);
 
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -625,7 +629,7 @@ export default function App() {
   useEffect(() => {
     setSelectedIds([]);
     setIsBulkMode(false);
-    setCurrentPage(1); // Reset to page 1 whenever filters change
+    setCurrentPage(1); 
   }, [currentView, searchTerm, filterStatus]);
 
   const activeApps = applications.filter(app => app.status_of_application !== 'Archived')
@@ -667,12 +671,11 @@ export default function App() {
   });
 
   // SORT & PAGINATE
-  const sortedApps = [...filteredApps].sort((a, b) => b.id - a.id); // Latest IDs first
+  const sortedApps = [...filteredApps].sort((a, b) => b.id - a.id); 
   const totalPages = Math.ceil(sortedApps.length / itemsPerPage);
   const paginatedApps = sortedApps.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Select all displayed on CURRENT PAGE
     if (e.target.checked) setSelectedIds(paginatedApps.map(app => app.id));
     else setSelectedIds([]);
   };
@@ -688,7 +691,7 @@ export default function App() {
 
     if (action === 'archive') {
       title = 'Archive Selected'; message = `Are you sure you want to archive ${selectedIds.length} projects?`; confirmText = 'Archive All'; confirmColor = 'bg-orange-500 hover:bg-orange-600'; 
-      apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived', date_archived: new Date().toISOString() });
+      apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' });
     } else if (action === 'restore') {
       title = 'Restore Selected'; message = `Are you sure you want to restore ${selectedIds.length} projects to Active?`; confirmText = 'Restore All'; confirmColor = 'bg-emerald-600 hover:bg-emerald-700'; 
       apiCall = (id) => axios.patch(`${API_URL}${id}/`, { status_of_application: 'Ongoing' });
@@ -758,7 +761,7 @@ export default function App() {
 
   const handleSoftDelete = (id: number) => {
     requestConfirm("Archive Project", "Are you sure you want to move this project to the archives?", () => {
-      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived', date_archived: new Date().toISOString() })
+      axios.patch(`${API_URL}${id}/`, { status_of_application: 'Archived' })
         .then(() => { fetchApplications(); showNotification("Project successfully archived.", "success"); })
         .catch(() => showNotification("Failed to archive project.", "error"));
     }, "Archive Project", "bg-orange-500 hover:bg-orange-600");
@@ -780,10 +783,20 @@ export default function App() {
     }, "Delete Forever", "bg-red-600 hover:bg-red-700");
   }
 
+  const getHelpContent = () => {
+    switch(currentView) {
+      case 'dashboard': return { title: "Dashboard Overview", text: "The Dashboard provides a real-time summary of the DHSUD Project Registry. You can view the total count of projects divided by their active status (Ongoing, Approved, etc.), as well as visual charts that break down the projects by their specific structural type." };
+      case 'active': return { title: "Managing Active Projects", text: "This view holds all active applications. \n\n• Use the '+ Add New Project' button to create a new entry.\n• Click on a blue Project Name to view all its details.\n• Click the pencil 'Edit' icon to update a project.\n• To import Excel/CSV files, use the 'Import' button.\n• You can select multiple items using the checkboxes to archive them in bulk." };
+      case 'archive': return { title: "Using the Archives", text: "The Archives safely store projects that are no longer active or have been completed/cancelled. \n\n• Projects here will not appear in Dashboard statistics.\n• Click the 'Restore' arrow to move a project back to Active status.\n• Click the 'Trash' icon to permanently delete it from the system." };
+      case 'about': return { title: "About Help", text: "This page contains details regarding the purpose of the DHSUD system and the contact information for the development team behind it." };
+      default: return { title: "Help & Guide", text: "Select a page from the sidebar to view specific instructions." };
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans text-slate-800 relative">
       
-      {/* --- PREMIUM TOAST NOTIFICATION --- */}
+      {/* --- TOAST NOTIFICATIONS --- */}
       {toast.show && (
         <div className="fixed top-8 right-8 z-[100] min-w-[320px] max-w-md bg-white border border-slate-100 rounded-2xl shadow-2xl p-4 flex items-start gap-4 animate-in slide-in-from-top-8 fade-in duration-300">
           <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
@@ -798,7 +811,7 @@ export default function App() {
             <p className="text-sm font-bold text-slate-800">
               {toast.type === 'success' ? 'Success!' : toast.type === 'error' ? 'Action Failed' : 'System Notice'}
             </p>
-            <p className="text-xs font-medium text-slate-500 mt-0.5 leading-relaxed">{toast.message}</p>
+            <p className="text-sm font-medium text-slate-500 mt-0.5 leading-relaxed">{toast.message}</p>
           </div>
           <button onClick={() => setToast({ ...toast, show: false })} className="shrink-0 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -811,7 +824,7 @@ export default function App() {
         <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-[70]">
           <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-sm p-8 relative animate-in zoom-in-95 duration-200">
             <button onClick={() => setConfirmDialog({ ...confirmDialog, show: false })} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-100 rounded-xl transition-all">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div className={`mx-auto mb-6 w-16 h-16 rounded-[20px] flex items-center justify-center ${confirmDialog.confirmColor.includes('red') ? 'bg-red-50 text-red-500' : confirmDialog.confirmColor.includes('orange') ? 'bg-orange-50 text-orange-500' : 'bg-emerald-50 text-emerald-500'}`}>
               {confirmDialog.confirmColor.includes('emerald') ? (
@@ -820,16 +833,37 @@ export default function App() {
                 <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               )}
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 text-center mb-3">{confirmDialog.title}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed text-center mb-8 px-2">{confirmDialog.message}</p>
+            <h3 className="text-3xl font-bold text-slate-800 text-center mb-3">{confirmDialog.title}</h3>
+            <p className="text-slate-500 text-base leading-relaxed text-center mb-8 px-2">{confirmDialog.message}</p>
             <div className="flex flex-col gap-3">
-              <button onClick={() => { confirmDialog.action?.(); setConfirmDialog({ ...confirmDialog, show: false }); }} className={`w-full py-3.5 text-white rounded-xl font-semibold text-sm transition-colors shadow-sm ${confirmDialog.confirmColor}`}>
+              <button onClick={() => { confirmDialog.action?.(); setConfirmDialog({ ...confirmDialog, show: false }); }} className={`w-full py-3.5 text-white rounded-xl font-semibold text-base transition-colors shadow-sm ${confirmDialog.confirmColor}`}>
                 {confirmDialog.confirmText}
               </button>
-              <button onClick={() => setConfirmDialog({ ...confirmDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-sm transition-all">
+              <button onClick={() => setConfirmDialog({ ...confirmDialog, show: false })} className="w-full py-3.5 text-slate-700 bg-white border-[1.5px] border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-semibold text-base transition-all">
                 Cancel
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- CONTEXTUAL HELP MODAL --- */}
+      {showHelp && (
+        <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-[90]">
+          <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-md p-8 relative animate-in zoom-in-95 duration-200">
+            <button onClick={() => setShowHelp(false)} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-100 rounded-xl transition-all">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div className="mx-auto mb-6 w-16 h-16 rounded-[20px] flex items-center justify-center bg-blue-50 text-blue-500">
+              <HelpIcon />
+            </div>
+            <h3 className="text-3xl font-bold text-slate-800 text-center mb-3">{getHelpContent().title}</h3>
+            <p className="text-slate-500 text-base leading-relaxed whitespace-pre-wrap px-2 text-center mb-8">
+              {getHelpContent().text}
+            </p>
+            <button onClick={() => setShowHelp(false)} className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base transition-colors shadow-sm">
+              Understood
+            </button>
           </div>
         </div>
       )}
@@ -841,56 +875,132 @@ export default function App() {
             <img src="/DHSUD_LOGO.png" alt="DHSUD Logo" className="w-12 h-12 object-contain" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white tracking-wide leading-none">HREDRD</h2>
-            <p className="text-[10px] text-slate-400 font-medium leading-tight mt-1">
+            <h2 className="text-2xl font-bold text-white tracking-wide leading-none">HREDRD</h2>
+            <p className="text-xs text-slate-400 font-medium leading-tight mt-1">
               Housing & Real Estate Dev. <br/> Regulation Division
             </p>
           </div>
         </div>
         <nav className="flex-1 px-4 space-y-2 mt-6">
-          <button onClick={() => setCurrentView('dashboard')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-sm font-medium ${currentView === 'dashboard' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
+          <button onClick={() => setCurrentView('dashboard')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-base font-medium ${currentView === 'dashboard' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
             <NavDashboardIcon /> Dashboard
           </button>
-          <button onClick={() => setCurrentView('active')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-sm font-medium ${currentView === 'active' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
+          <button onClick={() => setCurrentView('active')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-base font-medium ${currentView === 'active' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
             <NavFolderIcon /> Active Projects
           </button>
-          <button onClick={() => setCurrentView('archive')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-sm font-medium ${currentView === 'archive' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
+          <button onClick={() => setCurrentView('archive')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-base font-medium ${currentView === 'archive' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
             <NavArchiveIcon /> Archives
           </button>
+          <button onClick={() => setCurrentView('about')} className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all text-base font-medium ${currentView === 'about' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800'}`}>
+            <NavAboutIcon /> About
+          </button>
         </nav>
+        {/* Help Button Anchored at Bottom Left */}
+        <div className="p-4 border-t border-slate-800 mt-auto">
+          <button onClick={() => setShowHelp(true)} className="flex items-center gap-3 px-4 py-3 w-full rounded-xl transition-all text-base font-medium hover:bg-slate-800 text-slate-400 hover:text-white">
+            <HelpIcon /> Help & Guide
+          </button>
+        </div>
       </aside>
 
       {/* --- MAIN CONTENT AREA --- */}
       <main className="flex-1 p-8 ml-64 overflow-y-auto">
         <div className="max-w-6xl mx-auto">
+          
+          {/* ABOUT SYSTEM SECTION */}
+          {currentView === 'about' && (
+            <div className="animate-in fade-in duration-300">
+              <h1 className="text-3xl font-bold text-slate-800 mb-6">About the System</h1>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                    <NavDashboardIcon />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-2">DHSUD Project Registry & Monitoring System</h2>
+                    <p className="text-slate-600 leading-relaxed text-base">
+                      This application was developed as an offline-capable monitoring solution for tracking Housing and Real Estate Development projects. It was built specifically to aid the Department of Human Settlements and Urban Development (DHSUD) Negros Island Region office in efficiently managing project records, Certificates of Registration (CR), and Licenses to Sell (LS).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-bold text-slate-800 mb-5">Development Team</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Lead Developer Card */}
+                <div className="bg-gradient-to-br from-[#0a122e] to-slate-800 p-7 rounded-2xl shadow-md text-white relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                    <svg className="w-32 h-32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                  </div>
+                  <p className="text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">Lead Developer & Architect</p>
+                  <h3 className="text-3xl font-black mb-1">Wenard Roy Barrera</h3>
+                  <p className="text-slate-300 text-base font-medium mb-6">Computer Science OJT • Co-Founder of Cose Devs</p>
+                  
+                  <a href="https://kr1stik.cosedevs.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-5 py-2.5 rounded-xl text-base font-bold transition-colors shadow-sm">
+                    View Portfolio 
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                  </a>
+                </div>
+
+                {/* Co-Developers Card */}
+                <div className="bg-white p-7 rounded-2xl shadow-sm border border-slate-200">
+                   <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-5 flex items-center gap-2">
+                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                     Co-Developers / OJT Team
+                   </p>
+                   <ul className="space-y-4">
+                     <li className="flex items-center gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                       <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold shrink-0 text-lg">JB</div>
+                       <div>
+                         <p className="text-slate-800 font-bold text-base">John Eric Bayer</p>
+                         <p className="text-slate-500 text-sm font-medium">Computer Science OJT</p>
+                       </div>
+                     </li>
+                     <li className="flex items-center gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                       <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold shrink-0 text-lg">JI</div>
+                       <div>
+                         <p className="text-slate-800 font-bold text-base">Jefferson Inere</p>
+                         <p className="text-slate-500 text-sm font-medium">Computer Science OJT</p>
+                       </div>
+                     </li>
+                   </ul>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* DASHBOARD VIEW */}
           {currentView === 'dashboard' && (
             <div className="space-y-6 animate-in fade-in duration-300">
               <div className="mb-6">
-                <h1 className="text-2xl font-bold text-slate-800">System Dashboard</h1>
+                <h1 className="text-3xl font-bold text-slate-800">System Dashboard</h1>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Ongoing</p>
-                  <p className="text-3xl font-black text-slate-800">{stats.ongoing}</p>
+                  <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Ongoing</p>
+                  <p className="text-4xl font-black text-slate-800">{stats.ongoing}</p>
                 </div>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-emerald-500 hover:shadow-md transition-shadow">
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Approved</p>
-                  <p className="text-3xl font-black text-slate-800">{stats.approved}</p>
+                  <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Approved</p>
+                  <p className="text-4xl font-black text-slate-800">{stats.approved}</p>
                 </div>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-amber-500 hover:shadow-md transition-shadow">
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Endorsed to HREDRB</p>
-                  <p className="text-3xl font-black text-slate-800">{stats.endorsed}</p>
+                  <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Endorsed to HREDRB</p>
+                  <p className="text-4xl font-black text-slate-800">{stats.endorsed}</p>
                 </div>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Denied</p>
-                  <p className="text-3xl font-black text-slate-800">{stats.denied}</p>
+                  <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Denied</p>
+                  <p className="text-4xl font-black text-slate-800">{stats.denied}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-lg font-bold text-slate-800 mb-6">Application Status Breakdown</h3>
+                  <h3 className="text-xl font-bold text-slate-800 mb-6">Application Status Breakdown</h3>
                   {isLoading ? (
                     <div className="h-72 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div></div>
                   ) : (
@@ -898,8 +1008,8 @@ export default function App() {
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} dy={10} />
-                          <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} />
+                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 14, fontWeight: 500 }} dy={10} />
+                          <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 14, fontWeight: 500 }} />
                           <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontWeight: 600 }} />
                           <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={60}>
                             {chartData.map((_, index) => (<Cell key={`cell-${index}`} fill={chartData[index].color} />))} 
@@ -911,11 +1021,11 @@ export default function App() {
                 </div>
 
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-lg font-bold text-slate-800 mb-6">Projects by Type</h3>
+                  <h3 className="text-xl font-bold text-slate-800 mb-6">Projects by Type</h3>
                   {isLoading ? (
                     <div className="h-72 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div></div>
                   ) : pieChartData.length === 0 ? (
-                    <div className="h-72 flex items-center justify-center text-slate-400 text-sm font-medium">No project data available yet.</div>
+                    <div className="h-72 flex items-center justify-center text-slate-400 text-base font-medium">No project data available yet.</div>
                   ) : (
                     <div className="h-72 w-full">
                       <ResponsiveContainer width="100%" height="100%">
@@ -924,7 +1034,7 @@ export default function App() {
                             {pieChartData.map((entry, index) => (<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />))}
                           </Pie>
                           <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontWeight: 600 }} formatter={(value: any, name: any): [string, string] => [`${value} Project${Number(value) > 1 ? 's' : ''}`, String(name)]} />
-                          <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-slate-700 font-medium ml-1">{value}</span>} />
+                          <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-slate-700 font-medium ml-1 text-sm">{value}</span>} />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
@@ -934,25 +1044,26 @@ export default function App() {
             </div>
           )}
 
+          {/* ACTIVE & ARCHIVE TABLE VIEWS */}
           {(currentView === 'active' || currentView === 'archive') && (
             <div className="animate-in fade-in duration-300">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-slate-800">{currentView === 'active' ? 'Project Registry' : 'Archived Records'}</h1>
+                  <h1 className="text-3xl font-bold text-slate-800">{currentView === 'active' ? 'Project Registry' : 'Archived Records'}</h1>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button onClick={() => { setIsBulkMode(!isBulkMode); if (isBulkMode) setSelectedIds([]); }} className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm border ${isBulkMode ? 'bg-slate-700 hover:bg-slate-800 text-white border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-300'}`}>
+                  <button onClick={() => { setIsBulkMode(!isBulkMode); if (isBulkMode) setSelectedIds([]); }} className={`px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm border ${isBulkMode ? 'bg-slate-700 hover:bg-slate-800 text-white border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-300'}`}>
                     {isBulkMode ? 'Cancel Selection' : 'Select Multiple'}
                   </button>
                   {currentView === 'active' && (
                     <>
-                      <label className="cursor-pointer bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm">
+                      <label className="cursor-pointer bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
                         Import CSV <input type="file" className="hidden" accept=".xlsx, .csv" onChange={handleImport} />
                       </label>
-                      <button onClick={handleExport} className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm">
+                      <button onClick={handleExport} className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
                         Export Data
                       </button>
-                      <button onClick={() => { setEditingApp(null); setIsModalOpen(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm">
+                      <button onClick={() => { setEditingApp(null); setIsModalOpen(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
                         + Add New Project
                       </button>
                     </>
@@ -962,13 +1073,13 @@ export default function App() {
 
               {selectedIds.length > 0 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-5 flex justify-between items-center animate-in slide-in-from-top-2 shadow-sm">
-                  <span className="text-blue-800 font-bold text-sm px-2">{selectedIds.length} project{selectedIds.length > 1 ? 's' : ''} selected</span>
+                  <span className="text-blue-800 font-bold text-base px-2">{selectedIds.length} project{selectedIds.length > 1 ? 's' : ''} selected</span>
                   <div className="flex gap-3">
-                    {currentView === 'active' && (<button onClick={() => handleBulkAction('archive')} className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-sm font-semibold transition-all shadow-sm">Archive Selected</button>)}
+                    {currentView === 'active' && (<button onClick={() => handleBulkAction('archive')} className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-base font-semibold transition-all shadow-sm">Archive Selected</button>)}
                     {currentView === 'archive' && (
                       <>
-                        <button onClick={() => handleBulkAction('restore')} className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition-all shadow-sm">Restore Selected</button>
-                        <button onClick={() => handleBulkAction('delete')} className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold transition-all shadow-sm">Delete Selected</button>
+                        <button onClick={() => handleBulkAction('restore')} className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-base font-semibold transition-all shadow-sm">Restore Selected</button>
+                        <button onClick={() => handleBulkAction('delete')} className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-base font-semibold transition-all shadow-sm">Delete Selected</button>
                       </>
                     )}
                   </div>
@@ -978,11 +1089,12 @@ export default function App() {
               <div className="flex gap-4 mb-6">
                 <div className="relative flex-1">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><SearchIcon /></div>
-                  <input type="text" placeholder="Search projects or locations..." className="w-full pl-11 pr-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm font-medium transition-all shadow-sm placeholder:text-slate-400" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                  <input type="text" placeholder="Search projects or locations..." className="w-full pl-12 pr-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-base font-medium transition-all shadow-sm placeholder:text-slate-400" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 
+                {/* ONLY show the status dropdown if we are viewing Active Projects */}
                 {currentView === 'active' && (
-                  <select className="px-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm font-semibold text-slate-700 min-w-[180px] transition-all shadow-sm cursor-pointer" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+                  <select className="px-5 py-3 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none text-base font-semibold text-slate-700 min-w-[180px] transition-all shadow-sm cursor-pointer" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
                     <option value="All">All Statuses</option>
                     <option value="Ongoing">Ongoing</option>
                     <option value="Approved">Approved</option>
@@ -996,67 +1108,61 @@ export default function App() {
                 <table className="w-full text-left border-collapse table-fixed">
                   <thead className="bg-slate-50 border-b border-slate-200">
                     <tr>
-                      {isBulkMode && (<th className="px-6 py-4 w-[5%]"><input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={paginatedApps.length > 0 && paginatedApps.every(app => selectedIds.includes(app.id))} onChange={handleSelectAll} /></th>)}
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[30%]">Project Details</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[20%]">Location</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[15%]">Status</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[15%]">Certificates</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[15%] text-right">Actions</th>
+                      {isBulkMode && (<th className="px-6 py-4 w-[5%]"><input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={paginatedApps.length > 0 && paginatedApps.every(app => selectedIds.includes(app.id))} onChange={handleSelectAll} /></th>)}
+                      <th className="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-[30%]">Project Details</th>
+                      <th className="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-[20%]">Location</th>
+                      <th className="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-[15%]">Status</th>
+                      <th className="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-[15%]">Certificates</th>
+                      <th className="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-[15%] text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {isLoading ? (
-                      <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-20 text-center"><div className="flex flex-col items-center justify-center space-y-4"><div className="w-10 h-10 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div><p className="text-slate-500 text-sm font-semibold animate-pulse">Fetching records...</p></div></td></tr>
+                      <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-20 text-center"><div className="flex flex-col items-center justify-center space-y-4"><div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div><p className="text-slate-500 text-base font-semibold animate-pulse">Fetching records...</p></div></td></tr>
                     ) : paginatedApps.length === 0 ? (
-                      <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-12 text-center text-slate-500 text-sm font-medium">No matching records found.</td></tr>
+                      <tr><td colSpan={isBulkMode ? 6 : 5} className="px-6 py-12 text-center text-slate-500 text-base font-medium">No matching records found.</td></tr>
                     ) : (
                       paginatedApps.map((app) => (
                         <tr key={app.id} className={`hover:bg-slate-50 transition-colors ${selectedIds.includes(app.id) ? 'bg-blue-50/50' : ''}`}>
-                          {isBulkMode && (<td className="px-6 py-5"><input type="checkbox" className="w-4.5 h-4.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={selectedIds.includes(app.id)} onChange={() => handleSelectRow(app.id)} /></td>)}
+                          {isBulkMode && (<td className="px-6 py-5"><input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" checked={selectedIds.includes(app.id)} onChange={() => handleSelectRow(app.id)} /></td>)}
                           <td className="px-6 py-5">
                             <div 
-                              className="font-bold text-blue-600 hover:text-blue-800 cursor-pointer hover:underline text-base transition-colors"
+                              className="font-bold text-blue-600 hover:text-blue-800 cursor-pointer hover:underline text-lg transition-colors"
                               onClick={() => setViewingApp(app)}
                               title="Click to view details"
                             >
                               {app.name_of_proj}
                             </div>
-                            <div className="text-sm font-medium text-slate-500 mt-0.5">{app.proj_type} • {app.type_of_application}</div>
-                            {app.crls_options && app.crls_options.length > 0 && (<div className="text-xs font-semibold text-blue-600 mt-1.5 bg-blue-50 inline-block px-2 py-0.5 rounded-md">{app.crls_options.join(', ')}</div>)}
+                            <div className="text-base font-medium text-slate-500 mt-1">{app.proj_type} • {app.type_of_application}</div>
+                            {app.crls_options && app.crls_options.length > 0 && (<div className="text-sm font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2.5 py-1 rounded-md">{app.crls_options.join(', ')}</div>)}
                           </td>
                           <td className="px-6 py-5">
-                            <div className="text-sm font-bold text-slate-700">{app.mun_city}</div>
-                            <div className="text-sm font-medium text-slate-500">{app.prov}</div>
+                            <div className="text-base font-bold text-slate-700">{app.mun_city}</div>
+                            <div className="text-base font-medium text-slate-500">{app.prov}</div>
                           </td>
                           <td className="px-6 py-5">
                             <div className="flex flex-col gap-1">
                               <div className="flex items-center gap-2 whitespace-nowrap">
-                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${app.status_of_application === 'Archived' ? 'bg-slate-400' : app.status_of_application === 'Approved' ? 'bg-emerald-500' : app.status_of_application === 'Denied' ? 'bg-red-500' : app.status_of_application === 'Endorsed to HREDRB' ? 'bg-amber-500' : 'bg-blue-500'}`}></span>
-                                <span className="text-sm font-bold text-slate-700">{app.status_of_application}</span>
+                                <span className={`w-3 h-3 rounded-full shrink-0 shadow-sm ${app.status_of_application === 'Archived' ? 'bg-slate-400' : app.status_of_application === 'Approved' ? 'bg-emerald-500' : app.status_of_application === 'Denied' ? 'bg-red-500' : app.status_of_application === 'Endorsed to HREDRB' ? 'bg-amber-500' : 'bg-blue-500'}`}></span>
+                                <span className="text-base font-bold text-slate-700">{app.status_of_application}</span>
                               </div>
-                              {/* Display Archive Date if applicable */}
-                              {currentView === 'archive' && app.date_archived && (
-                                <div className="text-[10px] font-bold text-slate-400 ml-4">
-                                  Archived: {new Date(app.date_archived).toLocaleDateString()}
-                                </div>
-                              )}
                             </div>
                           </td>
-                          <td className="px-6 py-5 text-slate-600 text-sm font-mono font-medium">
+                          <td className="px-6 py-5 text-slate-600 text-base font-mono font-medium">
                             CR: {app.cr_no || '-'}<br/>LS: {app.ls_no || '-'}
                           </td>
                           <td className="px-6 py-5 text-right space-x-2">
                             {currentView === 'active' ? (
                               <>
-                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
-                                <button title="Edit Project" onClick={() => { setEditingApp(app); setIsModalOpen(true); }} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><EditIcon /></button>
-                                <button title="Archive Project" onClick={() => handleSoftDelete(app.id)} className="p-2 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all inline-flex"><ArchiveIcon /></button>
+                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
+                                <button title="Edit Project" onClick={() => { setEditingApp(app); setIsModalOpen(true); }} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><EditIcon /></button>
+                                <button title="Archive Project" onClick={() => handleSoftDelete(app.id)} className="p-2.5 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all inline-flex"><ArchiveIcon /></button>
                               </>
                             ) : (
                               <>
-                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
-                                <button title="Restore Project" onClick={() => handleRestore(app.id)} className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all inline-flex"><RestoreIcon /></button>
-                                <button title="Delete Forever" onClick={() => handleHardDelete(app.id)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all inline-flex"><TrashIcon /></button>
+                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
+                                <button title="Restore Project" onClick={() => handleRestore(app.id)} className="p-2.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all inline-flex"><RestoreIcon /></button>
+                                <button title="Delete Forever" onClick={() => handleHardDelete(app.id)} className="p-2.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all inline-flex"><TrashIcon /></button>
                               </>
                             )}
                           </td>
@@ -1068,22 +1174,22 @@ export default function App() {
                 
                 {/* --- PAGINATION FOOTER --- */}
                 {!isLoading && totalPages > 1 && (
-                  <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-                    <span className="text-sm text-slate-500 font-medium">
+                  <div className="px-6 py-5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                    <span className="text-base text-slate-500 font-medium">
                       Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, sortedApps.length)} of {sortedApps.length} projects
                     </span>
                     <div className="flex gap-2">
                       <button 
                         disabled={currentPage === 1} 
                         onClick={() => setCurrentPage(prev => prev - 1)} 
-                        className="px-4 py-2 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                        className="px-5 py-2.5 border border-slate-300 rounded-xl text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
                       >
                         Previous
                       </button>
                       <button 
                         disabled={currentPage === totalPages} 
                         onClick={() => setCurrentPage(prev => prev + 1)} 
-                        className="px-4 py-2 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                        className="px-5 py-2.5 border border-slate-300 rounded-xl text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
                       >
                         Next
                       </button>
@@ -1096,28 +1202,28 @@ export default function App() {
         </div>
       </main>
 
-      {/* --- RENDER THE REMAINDER OF YOUR VIEW DETAILS MODAL --- */}
+      {/* --- RENDER THE VIEW DETAILS MODAL --- */}
       {viewingApp && (
         <div className="fixed inset-0 bg-slate-900/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
             <div className="px-7 py-5 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-2xl">
-              <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+              <h3 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
                 <ViewIcon /> Project Details
               </h3>
               <button onClick={() => setViewingApp(null)} className="text-slate-400 hover:text-slate-600 p-1 hover:bg-slate-200 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
             
             <div className="overflow-y-auto p-7 bg-white">
               <div className="space-y-8">
                 <div>
-                  <h2 className="text-3xl font-black text-slate-800 tracking-tight">{viewingApp.name_of_proj}</h2>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-lg border border-blue-100 uppercase tracking-wider">{viewingApp.proj_type}</span>
-                    <span className="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs font-bold rounded-lg border border-slate-200 uppercase tracking-wider">{viewingApp.type_of_application}</span>
-                    <span className="px-3 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-100 uppercase tracking-wider">{viewingApp.main_or_compliance}</span>
-                    <span className={`px-3 py-1.5 text-xs font-bold rounded-lg uppercase tracking-wider border ${
+                  <h2 className="text-4xl font-black text-slate-800 tracking-tight">{viewingApp.name_of_proj}</h2>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    <span className="px-3 py-1.5 bg-blue-50 text-blue-700 text-sm font-bold rounded-lg border border-blue-100 uppercase tracking-wider">{viewingApp.proj_type}</span>
+                    <span className="px-3 py-1.5 bg-slate-100 text-slate-700 text-sm font-bold rounded-lg border border-slate-200 uppercase tracking-wider">{viewingApp.type_of_application}</span>
+                    <span className="px-3 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-bold rounded-lg border border-indigo-100 uppercase tracking-wider">{viewingApp.main_or_compliance}</span>
+                    <span className={`px-3 py-1.5 text-sm font-bold rounded-lg uppercase tracking-wider border ${
                       viewingApp.status_of_application === 'Approved' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
                       viewingApp.status_of_application === 'Denied' ? 'bg-red-50 text-red-700 border-red-200' :
                       viewingApp.status_of_application === 'Endorsed to HREDRB' ? 'bg-amber-50 text-amber-700 border-amber-200' :
@@ -1128,58 +1234,58 @@ export default function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Owner / Developer</p>
-                    <p className="text-sm font-bold text-slate-800">{viewingApp.proj_owner_dev || 'Not Specified'}</p>
+                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Owner / Developer</p>
+                    <p className="text-base font-bold text-slate-800">{viewingApp.proj_owner_dev || 'Not Specified'}</p>
                   </div>
                   <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Full Location</p>
-                    <p className="text-sm font-bold text-slate-800">
+                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Full Location</p>
+                    <p className="text-base font-bold text-slate-800">
                       {viewingApp.street_brgy ? viewingApp.street_brgy + ', ' : ''}
                       {viewingApp.mun_city}, {viewingApp.prov}
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                  <h4 className="text-sm font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Registrations & Licenses</h4>
+                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                  <h4 className="text-base font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Registrations & Licenses</h4>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Certificate of Registration (CR No.)</p>
-                      <p className="text-lg font-black text-slate-700 font-mono tracking-wide">{viewingApp.cr_no || '---'}</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Certificate of Registration (CR No.)</p>
+                      <p className="text-xl font-black text-slate-700 font-mono tracking-wide whitespace-pre-wrap">{viewingApp.cr_no || '---'}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">License to Sell (LS No.)</p>
-                      <p className="text-lg font-black text-slate-700 font-mono tracking-wide">{viewingApp.ls_no || '---'}</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">License to Sell (LS No.)</p>
+                      <p className="text-xl font-black text-slate-700 font-mono tracking-wide whitespace-pre-wrap">{viewingApp.ls_no || '---'}</p>
                     </div>
                     <div className="col-span-2 mt-2">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Certification Options</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Certification Options</p>
                       <div className="flex flex-wrap gap-2">
                         {viewingApp.crls_options && viewingApp.crls_options.length > 0 ? (
                           viewingApp.crls_options.map((opt, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-white border border-slate-200 shadow-sm text-slate-600 text-xs font-bold rounded-lg">{opt}</span>
+                            <span key={i} className="px-4 py-2 bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-bold rounded-lg">{opt}</span>
                           ))
                         ) : (
-                          <span className="text-sm font-medium text-slate-400 italic">No specific options checked.</span>
+                          <span className="text-base font-medium text-slate-400 italic">No specific options checked.</span>
                         )}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                  <h4 className="text-sm font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Important Timeline</h4>
+                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                  <h4 className="text-base font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Important Timeline</h4>
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Date Filed</p>
-                      <p className="text-sm font-bold text-slate-800">{viewingApp.date_filed ? new Date(viewingApp.date_filed).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Date Filed</p>
+                      <p className="text-base font-bold text-slate-800">{viewingApp.date_filed ? new Date(viewingApp.date_filed).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Date Issued</p>
-                      <p className="text-sm font-bold text-slate-800">{viewingApp.date_issued ? new Date(viewingApp.date_issued).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Date Issued</p>
+                      <p className="text-base font-bold text-slate-800">{viewingApp.date_issued ? new Date(viewingApp.date_issued).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Date of Completion</p>
-                      <p className="text-sm font-bold text-slate-800">{viewingApp.date_completion ? new Date(viewingApp.date_completion).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Date of Completion</p>
+                      <p className="text-base font-bold text-slate-800">{viewingApp.date_completion ? new Date(viewingApp.date_completion).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric'}) : '---'}</p>
                     </div>
                   </div>
                 </div>
@@ -1187,7 +1293,7 @@ export default function App() {
             </div>
             
             <div className="px-7 py-5 border-t border-slate-200 bg-slate-50 flex justify-end gap-3 rounded-b-2xl">
-              <button onClick={() => setViewingApp(null)} className="px-6 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold text-sm transition-colors shadow-sm">
+              <button onClick={() => setViewingApp(null)} className="px-6 py-3 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold text-base transition-colors shadow-sm">
                 Close Details
               </button>
             </div>

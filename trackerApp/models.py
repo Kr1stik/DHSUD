@@ -11,25 +11,8 @@ class Developer(models.Model):
 class ProjectApplication(models.Model):
     """Main table for the DHSUD Compliance Tracking"""
 
-    # --- Dropdown Choices ---
-    STATUS_CHOICES = [
-        ('Approved', 'Approved'),
-        ('Denied', 'Denied'),
-        ('Archived', 'Archived'),
-        ('Ongoing', 'Ongoing'),
-        ('Endorsed to HREDRB', 'Endorsed to HREDRB'),
-    ]
-
-    APPLICATION_TYPE_CHOICES = [
-        ('New Application', 'New Application'),
-        ('Reactivated', 'Reactivated Application'),
-        ('Replacement', 'Replacement'),
-    ]
-
-    CATEGORY_CHOICES = [
-        ('Main', 'Main'),
-        ('Compliance', 'Compliance'),
-    ]
+    # We removed the hardcoded choices tuples here because the React frontend 
+    # now allows the user to dynamically create their own custom options!
 
     # --- Database Fields ---
     
@@ -38,10 +21,10 @@ class ProjectApplication(models.Model):
     proj_owner_dev = models.CharField(max_length=255, blank=True, null=True)
     proj_type = models.CharField(max_length=100, null=True, blank=True, verbose_name="Project Type")
     
-    # Application Status & Types
-    type_of_application = models.CharField(max_length=50, choices=APPLICATION_TYPE_CHOICES, null=True, blank=True)
-    status_of_application = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Ongoing')
-    main_or_compliance = models.CharField(max_length=20, choices=CATEGORY_CHOICES, null=True, blank=True)
+    # Application Status & Types (Choices removed to allow dynamic frontend options)
+    type_of_application = models.CharField(max_length=100, null=True, blank=True)
+    status_of_application = models.CharField(max_length=100, default='Ongoing')
+    main_or_compliance = models.CharField(max_length=100, null=True, blank=True)
     
     # The JSONField to handle the React checkboxes
     crls_options = models.JSONField(blank=True, null=True, default=list, verbose_name="CR/LS Options")
@@ -51,9 +34,9 @@ class ProjectApplication(models.Model):
     date_issued = models.DateField(null=True, blank=True)
     date_completion = models.DateField(null=True, blank=True)
     
-    # Identifiers
-    cr_no = models.CharField(max_length=100, null=True, blank=True, verbose_name="CR No.")
-    ls_no = models.CharField(max_length=100, null=True, blank=True, verbose_name="LS No.")
+    # Identifiers (Max length increased to 255 to comfortably fit multiple comma-separated numbers)
+    cr_no = models.CharField(max_length=255, null=True, blank=True, verbose_name="CR No.")
+    ls_no = models.CharField(max_length=255, null=True, blank=True, verbose_name="LS No.")
     
     # Location
     prov = models.CharField(max_length=100, null=True, blank=True, verbose_name="Province")
@@ -63,6 +46,9 @@ class ProjectApplication(models.Model):
     # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # Automatically records when the project was moved to archives
+    date_archived = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.name_of_proj} - {self.status_of_application}"
