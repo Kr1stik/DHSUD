@@ -1188,20 +1188,22 @@ export default function App() {
                           <td className="px-6 py-5 text-slate-600 text-base font-mono font-medium">
                             CR: {app.cr_no || '-'}<br/>LS: {app.ls_no || '-'}
                           </td>
-                          <td className="px-6 py-5 text-right space-x-2">
-                            {currentView === 'active' ? (
-                              <>
-                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
-                                <button title="Edit Project" onClick={() => { setEditingApp(app); setIsModalOpen(true); }} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><EditIcon /></button>
-                                <button title="Archive Project" onClick={() => handleSoftDelete(app.id)} className="p-2.5 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all inline-flex"><ArchiveIcon /></button>
-                              </>
-                            ) : (
-                              <>
-                                <button title="View Details" onClick={() => setViewingApp(app)} className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all inline-flex"><ViewIcon /></button>
-                                <button title="Restore Project" onClick={() => handleRestore(app.id)} className="p-2.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all inline-flex"><RestoreIcon /></button>
-                                <button title="Delete Forever" onClick={() => handleHardDelete(app.id)} className="p-2.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all inline-flex"><TrashIcon /></button>
-                              </>
-                            )}
+                          <td className="px-6 py-5">
+                            <div className="flex items-center justify-end gap-2 flex-nowrap">
+                              {currentView === 'active' ? (
+                                <>
+                                  <button title="View Details" onClick={() => setViewingApp(app)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all shrink-0"><ViewIcon /></button>
+                                  <button title="Edit Project" onClick={() => { setEditingApp(app); setIsModalOpen(true); }} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all shrink-0"><EditIcon /></button>
+                                  <button title="Archive Project" onClick={() => handleSoftDelete(app.id)} className="p-2 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all shrink-0"><ArchiveIcon /></button>
+                                </>
+                              ) : (
+                                <>
+                                  <button title="View Details" onClick={() => setViewingApp(app)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all shrink-0"><ViewIcon /></button>
+                                  <button title="Restore Project" onClick={() => handleRestore(app.id)} className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all shrink-0"><RestoreIcon /></button>
+                                  <button title="Delete Forever" onClick={() => handleHardDelete(app.id)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all shrink-0"><TrashIcon /></button>
+                                </>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))
