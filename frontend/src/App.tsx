@@ -714,7 +714,8 @@ export default function App() {
     }, confirmText, confirmColor);
   };
 
-  const handleExport = () => {
+  // --- UPDATED EXPORT HANDLER ---
+  const handleExport = (format: 'xlsx' | 'csv') => {
     const dataToExport = sortedApps.map(app => ({
       'Type of Application': app.type_of_application || '', 'Status of Application': app.status_of_application || '', 'New or Amended CRLS': app.crls_options?.join(', ') || '', 'Main or Compliance': app.main_or_compliance || '', 'Date Filed': app.date_filed || '', 'Date Issued': app.date_issued || '', 'Date Completion': app.date_completion || '', 'CR No.': app.cr_no || '', 'LS No.': app.ls_no || '', 'Name of Proj': app.name_of_proj || '', 'Proj Owner Dev': app.proj_owner_dev || '', 'Prov': app.prov || '', 'Mun/City': app.mun_city || '', 'Street/Brgy': app.street_brgy || '', 'Proj Type': app.proj_type || ''
     }));
@@ -722,8 +723,12 @@ export default function App() {
     const ws = XLSX.utils.json_to_sheet(dataToExport);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Projects");
-    XLSX.writeFile(wb, `DHSUD_${currentView}_Export.xlsx`);
-    showNotification("Export successfully downloaded!", "success");
+    
+    // The xlsx library automatically converts to CSV if the extension is .csv
+    const fileName = `DHSUD_${currentView}_Export.${format}`;
+    XLSX.writeFile(wb, fileName);
+    
+    showNotification(`Export successfully downloaded as ${format.toUpperCase()}!`, "success");
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -786,7 +791,7 @@ export default function App() {
   const getHelpContent = () => {
     switch(currentView) {
       case 'dashboard': return { title: "Dashboard Overview", text: "The Dashboard provides a real-time summary of the DHSUD Project Registry. You can view the total count of projects divided by their active status (Ongoing, Approved, etc.), as well as visual charts that break down the projects by their specific structural type." };
-      case 'active': return { title: "Managing Active Projects", text: "This view holds all active applications. \n\n• Use the '+ Add New Project' button to create a new entry.\n• Click on a blue Project Name to view all its details.\n• Click the pencil 'Edit' icon to update a project.\n• To import Excel/CSV files, use the 'Import' button.\n• You can select multiple items using the checkboxes to archive them in bulk." };
+      case 'active': return { title: "Managing Active Projects", text: "This view holds all active applications. \n\n• Use the '+ Add New Project' button to create a new entry.\n• Click on a blue Project Name to view all its details.\n• Click the pencil 'Edit' icon to update a project.\n• Hover over the 'Import' or 'Export' buttons to select Excel or CSV formats.\n• You can select multiple items using the checkboxes to archive them in bulk." };
       case 'archive': return { title: "Using the Archives", text: "The Archives safely store projects that are no longer active or have been completed/cancelled. \n\n• Projects here will not appear in Dashboard statistics.\n• Click the 'Restore' arrow to move a project back to Active status.\n• Click the 'Trash' icon to permanently delete it from the system." };
       case 'about': return { title: "About Help", text: "This page contains details regarding the purpose of the DHSUD system and the contact information for the development team behind it." };
       default: return { title: "Help & Guide", text: "Select a page from the sidebar to view specific instructions." };
@@ -1057,12 +1062,44 @@ export default function App() {
                   </button>
                   {currentView === 'active' && (
                     <>
-                      <label className="cursor-pointer bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
-                        Import CSV <input type="file" className="hidden" accept=".xlsx, .csv" onChange={handleImport} />
-                      </label>
-                      <button onClick={handleExport} className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
-                        Export Data
-                      </button>
+                      {/* --- IMPORT DATA DROPDOWN --- */}
+                      <div className="relative group">
+                        <button className="bg-white border border-slate-300 group-hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm flex items-center gap-2">
+                          Import Data
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 flex flex-col overflow-hidden">
+                          <label className="cursor-pointer px-4 py-3 hover:bg-slate-50 text-sm font-semibold text-slate-700 border-b border-slate-100 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            Excel (.xlsx)
+                            <input type="file" className="hidden" accept=".xlsx" onChange={handleImport} />
+                          </label>
+                          <label className="cursor-pointer px-4 py-3 hover:bg-slate-50 text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+                            CSV (.csv)
+                            <input type="file" className="hidden" accept=".csv" onChange={handleImport} />
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* --- EXPORT DATA DROPDOWN --- */}
+                      <div className="relative group">
+                        <button className="bg-white border border-slate-300 group-hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm flex items-center gap-2">
+                          Export Data
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 flex flex-col overflow-hidden">
+                          <button onClick={() => handleExport('xlsx')} className="w-full text-left px-4 py-3 hover:bg-slate-50 text-sm font-semibold text-slate-700 border-b border-slate-100 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            Excel (.xlsx)
+                          </button>
+                          <button onClick={() => handleExport('csv')} className="w-full text-left px-4 py-3 hover:bg-slate-50 text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+                            CSV (.csv)
+                          </button>
+                        </div>
+                      </div>
+
                       <button onClick={() => { setEditingApp(null); setIsModalOpen(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold text-base transition-all shadow-sm">
                         + Add New Project
                       </button>
