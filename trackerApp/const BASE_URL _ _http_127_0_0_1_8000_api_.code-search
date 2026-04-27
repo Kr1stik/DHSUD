@@ -1,0 +1,44 @@
+# Query: const BASE_URL = 'http://127.0.0.1:8000/api';
+# ContextLines: 1
+
+8 results - 8 files
+
+DHSUD\frontend\src\views\AnnualReports.vue:
+  26  
+  27: const BASE_URL = import.meta.env.VITE_API_URL;
+  28  
+
+DHSUD\frontend\src\views\ElectionReports.vue:
+  25  
+  26: const BASE_URL = import.meta.env.VITE_API_URL;
+  27  
+
+DHSUD\frontend\src\views\HoaRegistry.vue:
+  93  
+  94: const BASE_URL = import.meta.env.VITE_API_URL;
+  95  
+
+DHSUD\frontend\src\views\NoticeOfViolation.vue:
+  35  
+  36: const BASE_URL = import.meta.env.VITE_API_URL;
+  37  
+
+DHSUD\frontend\src\views\OrderImposition.vue:
+  35  
+  36: const BASE_URL = import.meta.env.VITE_API_URL;
+  37  
+
+DHSUD\frontend\src\views\OrderTermination.vue:
+  31  
+  32: const BASE_URL = import.meta.env.VITE_API_URL;
+  33  
+
+DHSUD\frontend\src\views\RevocationOrder.vue:
+  34  
+  35: const BASE_URL = import.meta.env.VITE_API_URL;
+  36  
+
+DHSUD\frontend\src\views\SuspensionOrder.vue:
+  31  const isLoading = ref(true);
+  32: const BASE_URL = import.meta.env.VITE_API_URL;
+  33  
