@@ -1,8 +1,38 @@
+---
 # DHSUD Tracker - Negros Island Region
 
 A comprehensive web-based tracking system built for the Department of Human Settlements and Urban Development (DHSUD) Negros Island Region. This system manages project applications, Certificates of Registration (CR), Licenses to Sell (LS), and compliance records with built-in analytics and bulk processing features.
 
+# 🏛️ DHSUD HOA Management System
+
+A comprehensive, offline-ready Homeowners Association (HOA) Management System designed for the Department of Human Settlements and Urban Development (DHSUD). This system manages HOA profiles, compliance orders, legal workflows, and event scheduling, with a complete audit trail built specifically for LAN deployment.
+
+## ✨ Features
+
+* **📊 Interactive Dashboard**: Real-time statistics, active HOA counts, and a dynamic scheduling calendar.
+* **📋 HOA Registry**: Complete HOA profile management (Location, Contact, Governance, Status).
+* **⚖️ Legal Workflow Modules**: 
+    * Notice of Violation (NOV)
+    * Order to Perform (OTP)
+    * Order for Investigation (OIAS)
+* **🛑 Sanctions & Penalties**: Built-in 6-point severity scale management.
+* **📦 Archive System**: Soft-delete functionality for all database entities ensures no data is accidentally destroyed.
+* **🔌 Offline Capable**: Designed to run on a local government LAN without requiring internet access.
+
 ## 🛠️ Tech Stack
+
+**Frontend:**
+* Vue.js 3 (Composition API)
+* TypeScript
+* Vite (Bundler)
+* Tailwind CSS v4 (Styling)
+* Lucide Vue Next (Icons)
+
+**Backend:**
+* Python / Django
+* Django REST Framework (DRF)
+* SQLite (Offline Database)
+* Django CORS Headers
 
 * **Frontend:** React, TypeScript, Tailwind CSS, Vite, Recharts, SheetJS (XLSX)
 * **Backend:** Python, Django, Django REST Framework
@@ -20,63 +50,60 @@ Before you begin, ensure you have the following installed on your local machine:
 
 ---
 
-## 🚀 Installation & Setup Guide
+## 🚀 Installation Guide (Windows)
 
-### 1. Clone the Repository
-```bash
-git clone [https://github.com/YourFriendsName/TheProjectName.git](https://github.com/YourFriendsName/TheProjectName.git)
-cd TheProjectName
-2. Backend Setup (Django)
-Open a terminal and navigate to your backend directory (if separated):
+### Prerequisites
+Make sure you have the following installed on your machine:
+* [Python 3.10+](https://www.python.org/downloads/)
+* [Node.js (LTS)](https://nodejs.org/en/)
 
-Create and activate a virtual environment:
+### 1. Backend Setup (Django API)
 
-Windows:
+Open your terminal and navigate to the root directory of the project, then enter the `backend` folder:
 
-Bash
+```cmd
+cd backend
+Create and activate a Python virtual environment:
+
+DOS
 python -m venv venv
-.\venv\Scripts\activate
-Mac/Linux:
+venv\Scripts\activate
+Install the required Python packages:
 
-Bash
-python3 -m venv venv
-source venv/bin/activate
-Install dependencies:
-Make sure your virtual environment is active, then run:
+DOS
+pip install django djangorestframework django-cors-headers
+Set up the SQLite database and run migrations:
 
-Bash
-pip install -r requirements.txt
-Database Configuration:
-
-Open pgAdmin or your PostgreSQL command line and create a new database named dhsud_db (or whatever name is specified in settings.py).
-
-Update the DATABASES configuration in your Django settings.py with your local PostgreSQL username and password.
-
-Run Migrations:
-
-Bash
+DOS
 python manage.py makemigrations
 python manage.py migrate
-Start the Backend Server:
+Create an admin account (Superuser) to access the Django admin panel:
 
-Bash
+DOS
+python manage.py createsuperuser
+(Follow the prompts to set your username and password).
+
+Start the backend server:
+
+DOS
 python manage.py runserver
-The backend API will now be running at http://127.0.0.1:8000
+The backend API is now running at http://127.0.0.1:8000/
 
-3. Frontend Setup (React)
-Open a new terminal window (keep the backend running) and navigate to the frontend directory:
+2. Frontend Setup (Vue/Vite)
+Open a new, separate terminal window (leave the backend running), navigate to the root directory, and enter the frontend folder:
 
-Install node modules:
+DOS
+cd frontend
+Install the Node.js dependencies:
 
-Bash
+DOS
 npm install
-(Note: This will install all required UI packages including Axios, Tailwind, Recharts, and XLSX).
+npm install lucide-vue-next
+Start the Vite development server:
 
-Start the Frontend Development Server:
-
-Bash
+DOS
 npm run dev
-The frontend will now be running at http://localhost:5173
+The frontend interface is now running at http://localhost:5173/
 
 ✨ Key Features
 Interactive Dashboard: Real-time analytics using Recharts (Bar and Donut charts) to visualize project types and application statuses.
@@ -96,6 +123,134 @@ Push to the Branch (git push -u origin feature/AmazingFeature)
 
 Open a Pull Request
 
+📂 Project Structure
+Plaintext
+dhsud_system/
+│
+├── backend/                  # Django API & SQLite Database
+│   ├── core/                 # Main Django settings & routing
+│   ├── HoaRegistry/          # Database models, serializers, and views
+│   ├── manage.py             # Django entry point
+│   └── db.sqlite3            # Local Database file
+│
+└── frontend/                 # Vue 3 + TypeScript UI
+    ├── src/
+    │   ├── assets/           # Logos and static images
+    │   ├── components/       # Reusable UI (Sidebar)
+    │   ├── views/            # Main pages (Dashboard, HOA Registry)
+    │   ├── App.vue           # Main layout wrapper
+    │   └── main.ts           # Vue initialization
+    ├── tailwind.config.js    # Tailwind configuration
+    └── package.json          # Node dependencies
+🌐 Offline LAN Deployment Note
+To deploy this application to a local network server:
 
-### A Quick Tip for the README
-In the **Database Configuration** section, I put a placeholder name (`dhsud_db`). You
+Update the fetch() API calls in the Vue frontend from http://127.0.0.1:8000/... to the server's static IP address (e.g., http://192.168.1.100:8000/...).
+
+Build the frontend using npm run build.
+
+Serve the resulting /dist folder using a static file server (like Nginx or Apache) on the host machine.
+
+Run the Django backend on the host machine using Gunicorn or Waitress bound to 0.0.0.0:8000.
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+* Vue.js 3 (Composition API)
+* TypeScript
+* Vite (Bundler)
+* Tailwind CSS v4 (Styling)
+* Lucide Vue Next (Icons)
+
+**Backend:**
+* Python / Django
+* Django REST Framework (DRF)
+* SQLite (Offline Database)
+* Django CORS Headers
+
+---
+
+## 🚀 Installation Guide (Windows)
+
+### Prerequisites
+Make sure you have the following installed on your machine:
+* [Python 3.10+](https://www.python.org/downloads/)
+* [Node.js (LTS)](https://nodejs.org/en/)
+
+### 1. Backend Setup (Django API)
+
+Open your terminal and navigate to the root directory of the project, then enter the `backend` folder:
+
+```cmd
+cd backend
+Create and activate a Python virtual environment:
+
+DOS
+python -m venv venv
+venv\Scripts\activate
+Install the required Python packages:
+
+DOS
+pip install django djangorestframework django-cors-headers
+Set up the SQLite database and run migrations:
+
+DOS
+python manage.py makemigrations
+python manage.py migrate
+Create an admin account (Superuser) to access the Django admin panel:
+
+DOS
+python manage.py createsuperuser
+(Follow the prompts to set your username and password).
+
+Start the backend server:
+
+DOS
+python manage.py runserver
+The backend API is now running at http://127.0.0.1:8000/
+
+2. Frontend Setup (Vue/Vite)
+Open a new, separate terminal window (leave the backend running), navigate to the root directory, and enter the frontend folder:
+
+DOS
+cd frontend
+Install the Node.js dependencies:
+
+DOS
+npm install
+npm install lucide-vue-next
+Start the Vite development server:
+
+DOS
+npm run dev
+The frontend interface is now running at http://localhost:5173/
+
+📂 Project Structure
+Plaintext
+dhsud_system/
+│
+├── backend/                  # Django API & SQLite Database
+│   ├── core/                 # Main Django settings & routing
+│   ├── HoaRegistry/          # Database models, serializers, and views
+│   ├── manage.py             # Django entry point
+│   └── db.sqlite3            # Local Database file
+│
+└── frontend/                 # Vue 3 + TypeScript UI
+    ├── src/
+    │   ├── assets/           # Logos and static images
+    │   ├── components/       # Reusable UI (Sidebar)
+    │   ├── views/            # Main pages (Dashboard, HOA Registry)
+    │   ├── App.vue           # Main layout wrapper
+    │   └── main.ts           # Vue initialization
+    ├── tailwind.config.js    # Tailwind configuration
+    └── package.json          # Node dependencies
+🌐 Offline LAN Deployment Note
+To deploy this application to a local network server:
+
+Update the fetch() API calls in the Vue frontend from http://127.0.0.1:8000/... to the server's static IP address (e.g., http://192.168.1.100:8000/...).
+
+Build the frontend using npm run build.
+
+Serve the resulting /dist folder using a static file server (like Nginx or Apache) on the host machine.
+
+Run the Django backend on the host machine using Gunicorn or Waitress bound to 0.0.0.0:8000.
